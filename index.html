@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>CONTA UI</title>
+    <!-- Boxicons -->
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Estilos -->
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+    <!-- ======================================================
+    HEADER PRINCIPAL
+  ======================================================= -->
+  <header class="topbar">
+    <div class="topbar__inner">
+      <button class="brand" onclick="mostrarVista('home')">
+        <img src="./assets/images/logo.png" alt="logo CS-Cont">
+        <span>Conta UI</span>
+      </button>
+
+      <nav class="main-nav" id="mainNav">
+        <button class="nav-link active" data-section="home" onclick="mostrarVista('home')">
+          Inicio
+        </button>
+
+        <button class="nav-link" data-section="aprender" onclick="mostrarVista('aprender')">
+            Recursos 
+        </button>
+
+        <div class="nav-dropdown">
+          <button class="nav-link">
+            Developers <i class='bx bx-chevron-down'></i>
+          </button>
+          <div class="dropdown-panel dropdown-panel--small">
+            <button onclick="mostrarVista('developers')"><i class='bx bx-code-alt'></i> Estructura del proyecto</button>
+          </div>
+        </div>
+
+        <button class="nav-link nav-link--glow" data-section="quiz" onclick="mostrarVista('quiz')">
+          Validar conocimiento
+        </button>
+      </nav>
+
+      <div class="topbar__actions">
+
+        <button class="github-btn" onclick="contarGithub()">
+          <i class='bx bxl-github'></i>
+          <span id="contadorGithub">0</span>
+        </button>
+
+        <a class="login-btn" href="sistema.html">
+          Iniciar sesión
+        </a>
+
+        <button class="menu-btn" onclick="alternarMenu()">
+          <i class='bx bx-menu'></i>
+        </button>
+      </div>
+    </div>
+
+  </header>
+    
+</body>
+</html>
