@@ -8,7 +8,7 @@
     <!-- Boxicons -->
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
-  <!-- Estilos -->
+    <!-- Estilos -->
     <link rel="stylesheet" href="css/style.css">
 
 </head>
@@ -65,6 +65,194 @@
     </div>
 
   </header>
+
+
+  <main>
+    
+        <!-- HOME -->
+    <section id="home" class="view view--active">
+      <div class="hero-grid">
+
+        <div class="hero-content">
+          <span class="eyebrow">Facturación e Impuestos</span>
+          <h1>Aprende a Declarar de manera sencilla</h1>
+          <p>
+            Una experiencia educativa para comprender IVA, productos tarifa 0%,
+            facturas de compra y venta, declaraciones mensuales y el Formulario 104.
+          </p>
+
+          <div class="hero-actions">
+            <button class="primary-btn" onclick="mostrarVista('aprender')">
+              Aprende ahora <i class='bx bx-right-arrow-alt'></i>
+            </button>
+            <button class="secondary-btn" onclick="mostrarVista('sistema')">
+              Comenzar Ahora Gratis
+            </button>
+          </div>
+
+          <div class="trust-row">
+            <span><i class='bx bx-check'></i> Evita errores comunes</span>
+            <span><i class='bx bx-check'></i> Practica con ejemplos</span>
+            <span><i class='bx bx-check'></i> Simulador de Pruebas</span>
+          </div>
+
+          <div class="brands">
+            <div class="brands-list">
+                <img src="./assets/images/krakedev.png" alt="logo KrakeDev">
+                <p>Krake Dev</p>
+            </div>    
+            <div class="brands-list">
+                <img src="./assets/images/logo.png" alt="logo 404 Grupo">
+                <p>404: Nombres no Encontrados</p>
+            </div>    
+            <div class="brands-list">
+                <img src="./assets/images/movilis.jpg" alt="logo Movilis">
+                <p>Movilis</p>
+            </div>    
+          </div>
+        
+        </div>
+
+        <div class="hero-imagen"> 
+            <img src="./assets/images/home.svg" alt="">
+        </div>
+      </div>
+
+      <section class="home-categories">
+        <div class="section-heading">
+          <span class="eyebrow">Explora por categorías</span>
+          <h2>Todo lo necesario para empezar</h2>
+          <p>Con Conta UI podras aprender de manera teórica y practica</p>
+        </div>
+
+        <div class="category-grid">
+          <button onclick="mostrarVista('aprender', 'iva')" class="category-card large-card">
+            <i class='bx bx-receipt'></i>
+            <h3>Productos gravados con IVA</h3>
+            <p>Aprende cuándo un producto genera IVA y cómo se calcula.</p>
+            <span>SRI</span>
+          </button>
+
+          <button onclick="mostrarVista('aprender', 'tarifa0')" class="category-card">
+            <i class='bx bx-leaf'></i>
+            <h3>Tarifa 0%</h3>
+            <p>Identifica productos que no generan IVA.</p>
+          </button>
+
+          <button onclick="mostrarVista('aprender', 'formulario104')" class="category-card">
+            <i class='bx bx-file'></i>
+            <h3>Formulario 104</h3>
+            <p>Comprende su función en la declaración de IVA.</p>
+          </button>
+
+          <button onclick="mostrarVista('quiz')" class="category-card">
+            <i class='bx bx-question-mark'></i>
+            <h3>Cuestionario</h3>
+            <p>Valida tu conocimiento con preguntas rápidas.</p>
+          </button>
+
+          <button onclick="mostrarVista('sistema')" class="category-card">
+            <i class='bx bx-grid-alt'></i>
+            <h3>Sistema</h3>
+            <p>Simula registros de compras, ventas e impuestos.</p>
+          </button>
+        </div>
+      </section>
+
+      <section class="system-offer">
+        
+        <div class="offer-content">
+          <span class="eyebrow">Sistema gratuito de práctica</span>
+          <h2>Genera facturas, registra compras y prepara tu resumen 104</h2>
+          <p>
+            Practica con un sistema educativo donde podrás registrar compras,
+            ventas, productos con IVA y tarifa 0%. Luego el sistema calculará valores
+            base para entender el Formulario 104.
+          </p>
+
+          <div class="offer-actions">
+            <button class="primary-btn" onclick="mostrarVista('sistema')">
+              Probar Sistema Ahora <i class='bx bx-right-arrow-alt'></i>
+            </button>
+            <button class="secondary-btn" onclick="mostrarVista('aprender', 'formulario104')">
+              Aprender Formulario 104
+            </button>
+          </div>
+        </div>
+
+        <div class="video-offert">
+            <video src="./assets/video/example.webm" autoplay muted loop></video>
+        </div>
+      </section>
+
+      <section class="community-section">
+        <div class="section-heading center-heading">
+          <span class="eyebrow">Lo que dicen sobre nosotros</span>
+          <h2>Una forma más simple de aprender impuestos</h2>
+          <p>Revisa aqui nuestras recomendaciones, y tambien deja tu comentario.</p>
+        </div>
+
+        <div class="testimonial-mask">
+          <div class="testimonial-track">
+            <article class="testimonial-card">
+              <div class="avatar">A</div>
+              <strong>@andrea_dev</strong>
+              <p>La explicación del IVA es clara y el simulador ayuda a practicar sin miedo.</p>
+            </article>
+            <article class="testimonial-card">
+              <div class="avatar">J</div>
+              <strong>@joel_code</strong>
+              <p>Me gustó que primero enseña los conceptos y luego permite probarlos en el sistema.</p>
+            </article>
+            <article class="testimonial-card">
+              <div class="avatar">M</div>
+              <strong>@mateo_ui</strong>
+              <p>Las cards de temas hacen que aprender Formulario 104 sea más ordenado.</p>
+            </article>
+            <article class="testimonial-card">
+              <div class="avatar">S</div>
+              <strong>@sofia_web</strong>
+              <p>El cuestionario permite validar si realmente entendí subtotal, IVA y total.</p>
+            </article>
+            <article class="testimonial-card">
+              <div class="avatar">L</div>
+              <strong>@luis_js</strong>
+              <p>Buena base para trabajar en equipo con HTML, CSS, JavaScript y GitHub.</p>
+            </article>
+
+            <!-- Grupo duplicado para efecto infinito continuo -->
+            <article class="testimonial-card" aria-hidden="true">
+              <div class="avatar">A</div>
+              <strong>@andrea_dev</strong>
+              <p>La explicación del IVA es clara y el simulador ayuda a practicar sin miedo.</p>
+            </article>
+            <article class="testimonial-card" aria-hidden="true">
+              <div class="avatar">J</div>
+              <strong>@joel_code</strong>
+              <p>Me gustó que primero enseña los conceptos y luego permite probarlos en el sistema.</p>
+            </article>
+            <article class="testimonial-card" aria-hidden="true">
+              <div class="avatar">M</div>
+              <strong>@mateo_ui</strong>
+              <p>Las cards de temas hacen que aprender Formulario 104 sea más ordenado.</p>
+            </article>
+            <article class="testimonial-card" aria-hidden="true">
+              <div class="avatar">S</div>
+              <strong>@sofia_web</strong>
+              <p>El cuestionario permite validar si realmente entendí subtotal, IVA y total.</p>
+            </article>
+            <article class="testimonial-card" aria-hidden="true">
+              <div class="avatar">L</div>
+              <strong>@luis_js</strong>
+              <p>Buena base para trabajar en equipo con HTML, CSS, JavaScript y GitHub.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+    </section>
+    
+  </main>
     
 </body>
 </html>
