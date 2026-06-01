@@ -252,6 +252,285 @@
 
     </section>
     
+        <!-- APRENDER -->
+    <section id="aprender" class="view docs-view">
+      <aside class="docs-sidebar">
+        <div class="sidebar-group">
+          <p>Comenzar</p>
+          <button onclick="mostrarTema('overview')" class="side-link active" data-topic="overview">
+            <i class='bx bx-play'></i> Inicio de unidad
+          </button>
+          <button onclick="mostrarTema('iva')" class="side-link" data-topic="iva">Productos con IVA</button>
+          <button onclick="mostrarTema('tarifa0')" class="side-link" data-topic="tarifa0">Productos tarifa 0%</button>
+          <button onclick="mostrarTema('subtotal')" class="side-link" data-topic="subtotal">Subtotal</button>
+          <button onclick="mostrarTema('total')" class="side-link" data-topic="total">Total factura</button>
+        </div>
+
+        <div class="sidebar-group">
+          <p>Declaración</p>
+          <button onclick="mostrarTema('electronica')" class="side-link" data-topic="electronica">Facturación electrónica</button>
+          <button onclick="mostrarTema('declaraciones')" class="side-link" data-topic="declaraciones">Declaraciones mensuales</button>
+          <button onclick="mostrarTema('formulario104')" class="side-link" data-topic="formulario104">Formulario 104</button>
+          <button onclick="mostrarTema('impuestos')" class="side-link" data-topic="impuestos">Cálculo básico</button>
+        </div>
+      </aside>
+
+      <article class="docs-content">
+        <div id="topic-overview" class="topic topic--active">
+          <span class="breadcrumb">Unidad 3 / Overview</span>
+          <h2>Facturación e impuestos</h2>
+          <p class="lead">
+            En esta Sección aprenderás los conceptos básicos para comprender cómo una factura
+            registra valores como subtotal, IVA y total. Luego, esos datos serán usados por
+            el sistema para preparar un resumen básico del Formulario 104.
+            Tambien tendras guias del contribuyente que podras descargar para facilitar tu aprendizaje.
+          </p>
+
+          <p>Elije el tema por el que quieras comenzar</p>
+
+          <div class="docs-card-grid">
+            <button onclick="mostrarTema('iva')" class="docs-card">
+              <i class='bx bx-receipt'></i>
+              <h3>Productos con IVA</h3>
+              <p>Bienes o servicios sujetos al Impuesto al Valor Agregado.</p>
+            </button>
+
+            <button onclick="mostrarTema('tarifa0')" class="docs-card">
+              <i class='bx bx-leaf'></i>
+              <h3>Tarifa 0%</h3>
+              <p>Productos que se facturan, pero no generan valor de IVA.</p>
+            </button>
+
+            <button onclick="mostrarTema('subtotal')" class="docs-card">
+              <i class='bx bx-file'></i>
+              <h3>SubTotal</h3>
+              <p>Como obtener el subtotal de una factura.</p>
+            </button>
+
+            <button onclick="mostrarTema('electronica')" class="docs-card">
+              <i class='bx bx-cart-alt' ></i>
+              <h3>Facturación</h3>
+              <p>Conceptos y guias para realizar una factura.</p>
+            </button>
+
+            <button onclick="mostrarTema('declaraciones')" class="docs-card">
+              <i class='bx bxs-calculator'></i>
+              <h3>Declaraciones</h3>
+              <p>Como realizar declaraciones mensuales ante el SRI.</p>
+            </button>
+            
+            <button onclick="mostrarTema('formulario104')" class="docs-card">
+              <i class='bx bx-pencil'></i>
+              <h3>Formulario 104</h3>
+              <p>Documento utilizado para declarar IVA ante el SRI.</p>
+            </button>
+          </div>
+        </div>
+
+        <div id="topic-iva" class="topic">
+          <span class="breadcrumb">Unidad 3 / Tema 1</span>
+          <h2>Productos gravados con IVA</h2>
+          <p class="lead">
+            Son bienes o servicios que están sujetos al pago del Impuesto al Valor Agregado.
+            El negocio cobra este impuesto al cliente y debe registrarlo en la factura.
+          </p>
+
+          <div class="formula-box">
+            <span>Fórmula</span>
+            <code>IVA = Subtotal × Tasa de IVA</code>
+          </div>
+
+          <h3>Ejemplo práctico</h3>
+          <p>Una laptop cuesta $800 y el IVA es 15%.</p>
+          <div class="result-table">
+            <div><span>Subtotal</span><strong>$800.00</strong></div>
+            <div><span>IVA 15%</span><strong>$120.00</strong></div>
+            <div><span>Total</span><strong>$920.00</strong></div>
+          </div>
+        </div>
+
+        <div id="topic-tarifa0" class="topic">
+          <span class="breadcrumb">Unidad 3 / Tema 2</span>
+          <h2>Productos tarifa 0%</h2>
+          <p class="lead">
+            Son bienes o servicios que no pagan IVA, aunque sí deben registrarse en facturas
+            y declaraciones tributarias.
+          </p>
+
+          <div class="chip-list">
+            <span>Arroz</span>
+            <span>Leche</span>
+            <span>Pan</span>
+            <span>Frutas</span>
+            <span>Medicinas</span>
+            <span>Servicios educativos</span>
+          </div>
+
+          <div class="callout">
+            <i class='bx bx-info-circle'></i>
+            <p>
+              Tarifa 0% no significa que el producto desaparece de la declaración.
+              Se registra, pero su IVA es $0.
+            </p>
+          </div>
+        </div>
+
+        <div id="topic-subtotal" class="topic">
+          <span class="breadcrumb">Unidad 3 / Tema 3</span>
+          <h2>Subtotal</h2>
+          <p class="lead">
+            El subtotal es el valor de los productos o servicios antes de agregar impuestos,
+            descuentos o recargos.
+          </p>
+
+          <div class="formula-box">
+            <span>Fórmula</span>
+            <code>Subtotal = suma de productos</code>
+          </div>
+
+          <div class="result-table">
+            <div><span>Camisa</span><strong>$25</strong></div>
+            <div><span>Pantalón</span><strong>$40</strong></div>
+            <div><span>Zapatos</span><strong>$60</strong></div>
+            <div><span>Subtotal</span><strong>$125</strong></div>
+          </div>
+        </div>
+
+        <div id="topic-total" class="topic">
+          <span class="breadcrumb">Unidad 3 / Tema 5</span>
+          <h2>Total factura</h2>
+          <p class="lead">
+            Es el valor final que debe pagar el cliente después de sumar impuestos y restar
+            descuentos.
+          </p>
+
+          <div class="formula-box">
+            <span>Fórmula</span>
+            <code>Total = Subtotal + IVA - Descuentos</code>
+          </div>
+        </div>
+
+        <div id="topic-electronica" class="topic">
+          <span class="breadcrumb">Unidad 3 / Tema 6</span>
+          <h2>Facturación electrónica</h2>
+          <p class="lead">
+            Es un sistema digital para emitir comprobantes electrónicos válidos. En un sistema
+            real puede incluir PDF, XML, firma electrónica y autorización.
+          </p>
+
+          <div class="steps">
+            <div><span>1</span> Generar factura</div>
+            <div><span>2</span> Firmar electrónicamente</div>
+            <div><span>3</span> Enviar al SRI</div>
+            <div><span>4</span> Recibir autorización</div>
+          </div>
+        </div>
+
+        <div id="topic-declaraciones" class="topic">
+          <span class="breadcrumb">Unidad 3 / Tema 7</span>
+          <h2>Declaraciones mensuales al SRI</h2>
+          <p class="lead">
+            Son reportes tributarios donde se informan impuestos cobrados y pagados durante
+            un período.
+          </p>
+
+          <ul class="nice-list">
+            <li>Registrar ventas</li>
+            <li>Registrar compras</li>
+            <li>Calcular IVA generado</li>
+            <li>Calcular IVA pagado</li>
+            <li>Presentar formularios</li>
+          </ul>
+        </div>
+
+        <div id="topic-formulario104" class="topic">
+          <span class="breadcrumb">Unidad 3 / Tema 8</span>
+          <h2>Formulario 104</h2>
+          <p class="lead">
+            Es el documento utilizado en Ecuador para declarar el IVA ante el SRI.
+            El mini sistema puede ayudar a organizar ventas gravadas, ventas tarifa 0%,
+            compras e IVA.
+          </p>
+
+          <div class="result-table">
+            <div><span>Ventas 15%</span><strong>$5000</strong></div>
+            <div><span>IVA ventas</span><strong>$750</strong></div>
+            <div><span>Compras</span><strong>$3000</strong></div>
+            <div><span>IVA compras</span><strong>$450</strong></div>
+            <div><span>IVA a pagar</span><strong>$300</strong></div>
+          </div>
+        </div>
+
+        <div id="topic-impuestos" class="topic">
+          <span class="breadcrumb">Unidad 3 / Tema 9</span>
+          <h2>Cálculo básico de impuestos</h2>
+          <p class="lead">
+            Consiste en determinar cuánto debe pagar una empresa según sus actividades
+            económicas, su base imponible y la tasa del impuesto.
+          </p>
+
+          <div class="formula-box">
+            <span>Fórmula</span>
+            <code>Impuesto = Base imponible × Tasa</code>
+          </div>
+        </div>
+      </article>
+
+      <aside class="docs-aside">
+        <div class="aside-card">
+          <p class="aside-title">¿Es útil?</p>
+          <div class="feedback-actions">
+            <button><i class='bx bx-x'></i></button>
+            <button><i class='bx bx-check'></i></button>
+          </div>
+        </div>
+
+        <div class="aside-card">
+          <p class="aside-title">Herramientas</p>
+          <button onclick="mostrarVista('quiz')"><i class='bx bx-question-mark'></i> Cuestionario</button>
+          <button onclick="mostrarVista('sistema')"><i class='bx bx-calculator'></i> Mini sistema</button>
+          <button onclick="copiarResumen()"><i class='bx bx-copy'></i> Copiar resumen</button>
+        </div>
+
+        <div class="aside-card green-card">
+          <p class="aside-title">Consejo</p>
+          <p>Primero comprende el concepto, luego practica el cálculo en el sistema.</p>
+        </div>
+      </aside>
+    </section>
+
+    <!-- MINI SISTEMA PRESENTACIÓN -->
+    <section id="sistema" class="view simple-view">
+      <div class="section-heading">
+        <span class="eyebrow">Mini sistema</span>
+        <h2>Simula compras, ventas y resumen 104</h2>
+        <p>
+          Esta primera página presenta el sistema. En el siguiente módulo se construirá
+          el CRUD de productos, facturas y cálculos automáticos.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <article>
+          <i class='bx bx-package'></i>
+          <h3>Productos</h3>
+          <p>Registro de productos gravados con IVA y tarifa 0%.</p>
+        </article>
+        <article>
+          <i class='bx bx-cart'></i>
+          <h3>Compras y ventas</h3>
+          <p>Registro de facturas de compra y venta.</p>
+        </article>
+        <article>
+          <i class='bx bx-file'></i>
+          <h3>Resumen 104</h3>
+          <p>Cálculo educativo de IVA generado, crédito tributario e IVA final.</p>
+        </article>
+      </div>
+
+      <a class="primary-btn" href="sistema.html">Ingresar al prototipo</a>
+    </section>
+
   </main>
     
 </body>
