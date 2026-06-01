@@ -531,7 +531,211 @@
       <a class="primary-btn" href="sistema.html">Ingresar al prototipo</a>
     </section>
 
+        <!-- QUIZ -->
+    <section id="quiz" class="view quiz-view">
+      <div id="quizRegistro" class="quiz-screen quiz-screen--active">
+        <div class="quiz-welcome-card">
+          <span class="eyebrow">Validar conocimiento</span>
+          <h2>Antes de comenzar</h2>
+          <p>Registra tu nombre para personalizar el cuestionario y guardar tu resultado en pantalla.</p>
+
+          <div class="quiz-register-form">
+            <label for="nombreParticipante">Nombre del estudiante</label>
+            <input type="text" id="nombreParticipante" placeholder="Ejemplo: Andrea" />
+
+            <label for="correoParticipante">Correo opcional</label>
+            <input type="email" id="correoParticipante" placeholder="correo@ejemplo.com" />
+
+            <button class="primary-btn" onclick="registrarParticipante()">
+              Continuar <i class='bx bx-right-arrow-alt'></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="quizTemas" class="quiz-screen">
+        <div class="section-heading">
+          <span class="eyebrow">Elige un tema</span>
+          <h2 id="bienvenidaQuiz">Bienvenido</h2>
+          <p>Aquí podrás poner a prueba tu conocimiento. Cada cuestionario mezcla las respuestas de manera aleatoria.</p>
+        </div>
+
+        <div class="quiz-topic-grid">
+          <button class="quiz-topic-card" onclick="iniciarCuestionarioPorTema('todos')">
+            <i class='bx bx-grid-alt'></i>
+            <h3>Todos los temas</h3>
+            <p>Preguntas mezcladas de IVA, subtotal, total, tarifa 0% y Formulario 104.</p>
+            <span>15 preguntas</span>
+          </button>
+
+          <button class="quiz-topic-card" onclick="iniciarCuestionarioPorTema('iva')">
+            <i class='bx bx-receipt'></i>
+            <h3>IVA</h3>
+            <p>Productos gravados, cálculo y aplicación del impuesto.</p>
+            <span>10 preguntas</span>
+          </button>
+
+          <button class="quiz-topic-card" onclick="iniciarCuestionarioPorTema('tarifa0')">
+            <i class='bx bx-leaf'></i>
+            <h3>Tarifa 0%</h3>
+            <p>Productos que se facturan, pero no generan IVA.</p>
+            <span>10 preguntas</span>
+          </button>
+
+          <button class="quiz-topic-card" onclick="iniciarCuestionarioPorTema('subtotal')">
+            <i class='bx bx-math'></i>
+            <h3>Subtotal y total</h3>
+            <p>Base de cálculo, IVA, descuentos y total factura.</p>
+            <span>10 preguntas</span>
+          </button>
+
+          <button class="quiz-topic-card" onclick="iniciarCuestionarioPorTema('formulario104')">
+            <i class='bx bx-file'></i>
+            <h3>Formulario 104</h3>
+            <p>Ventas, compras, IVA generado y crédito tributario.</p>
+            <span>10 preguntas</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="quizPreguntas" class="quiz-screen">
+        <div class="quiz-layout">
+          <div class="quiz-main">
+            <div class="quiz-header">
+              <div>
+                <span class="eyebrow" id="quizTemaActual">Evaluación rápida</span>
+                <h2 id="quizTitulo">Quiz de facturación e impuestos</h2>
+              </div>
+              <strong id="quizProgressText">1 / 10</strong>
+            </div>
+
+            <div class="progress-track">
+              <div id="quizProgressBar"></div>
+            </div>
+
+            <article class="question-card">
+              <p id="questionNumber">Pregunta 1</p>
+              <h3 id="questionText"></h3>
+
+              <div id="answersContainer" class="answers"></div>
+            </article>
+
+            <div class="quiz-actions">
+              <button class="secondary-btn" onclick="anteriorPregunta()">Anterior</button>
+              <button class="primary-btn" id="btnSiguienteQuiz" onclick="siguientePregunta()">Siguiente</button>
+            </div>
+          </div>
+
+          <aside class="quiz-status">
+            <div class="score-box">
+              <strong id="scorePercent">0%</strong>
+              <span>Respuestas correctas</span>
+            </div>
+
+            <div id="questionList" class="question-list"></div>
+          </aside>
+        </div>
+      </div>
+
+      <div id="quizResultado" class="quiz-screen">
+        <div class="quiz-result-card">
+          <span class="eyebrow">Resultado final</span>
+          <h2 id="resultadoTitulo">Resultado</h2>
+          <p id="resultadoDetalle"></p>
+
+          <div class="result-actions">
+            <button class="primary-btn" onclick="volverATemasQuiz()">
+              Elegir otro tema
+            </button>
+            <button class="secondary-btn" onclick="repetirCuestionario()">
+              Repetir cuestionario
+            </button>
+            <button class="secondary-btn" id="btnReforzarTema" onclick="reforzarTemaQuiz()">
+              Reforzar más
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEVELOPERS -->
+    <section id="developers" class="view simple-view">
+      <div class="section-heading">
+        <span class="eyebrow">Developers</span>
+        <h2 class="developer">Estructura limpia del proyecto</h2>
+        <p>
+          El proyecto esta construido en HTML, CSS y JavaScript, con la estructura de la siguiente manera ayuda a que el código sea fácil de leer,
+          modificar y publicar.
+        </p>
+      </div>
+
+      <div class="code-card">
+<pre><code>ContaUI/
+├── index.html
+├── sistema.html
+├── css/
+│   └── styles.css
+└── js/
+    ├── app.js
+    ├── quiz.js
+    └── data.js</code></pre>
+      </div>
+    </section>
+
   </main>
     
+    <footer class="footer">
+    <div class="brand-footer">
+        <img src="./assets/images/logo.png" alt="logo CS-Cont">
+        <span>Conta UI</span>
+    </div>
+    <div class="footer-sections">
+        <div class="footer-options details">
+            <span>Sobre Nosotros</span>
+            <p>Conta UI nace para ayudar a pequeños emprendimientos que quieran aprender facturación, impuestos y Formulario 104 de manera gratuita y asi evitar multas con el SRI</p>
+            
+            <div class="footer-icons">
+                <i class='bx bxl-facebook-circle' ></i>
+                <i class='bx bxl-instagram-alt' ></i>
+                <i class='bx bxl-github'></i>
+                <i class='bx bxl-gmail' ></i>
+            </div>
+        </div>
+        <div class="footer-options">
+            <span>Developers</span>
+            <ul>
+                <li><a href="#">Estructura del Proyecto</a></li>
+                <li><a href="#">API</a></li>
+                <li><a href="#">Seguridad</a></li>
+                <li><a href="#">Documentación</a></li>
+            </ul>
+        </div>
+        <div class="footer-options">
+            <span>Contactos</span>
+            <ul>
+                <li>Quito - Ecuador</li>
+                <li><a href="#">+593 999 999 9999</a></li>
+                <li><a href="#">Cristian Peña</a></li>
+                <li><a href="#">Scarlet Cordova</a></li>
+            </ul>
+        </div>
+        <div class="footer-options">
+            <span>Código Abierto</span>
+            <ul>
+                <li><a href="#">Descargar</a></li>
+                <li><a href="#">GitHub</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="footer-copy">
+        <p>Hecho con amor por: <span>404</span>: Nombres no Encontrados</p>
+    </div>
+  </footer>
+  
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/widget.js"></script>
 </body>
 </html>
