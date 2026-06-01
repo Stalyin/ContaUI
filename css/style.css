@@ -568,3 +568,279 @@ a {
 .large-card h3 {
   margin-top: -150px;
 }
+
+/* ======================================================
+  DOCS VIEW
+====================================================== */
+.docs-view {
+  min-height: calc(100vh - 115px);
+  grid-template-columns: 280px minmax(0, 1fr) 280px;
+}
+
+.docs-view.view--active {
+  display: grid;
+}
+
+.docs-sidebar,
+.docs-aside {
+  position: sticky;
+  top: 115px;
+  height: calc(100vh - 115px);
+  overflow-y: auto;
+  padding: 34px 28px;
+  border-right: 1px solid var(--border);
+}
+
+.docs-aside {
+  border-right: 0;
+  border-left: 1px solid var(--border);
+}
+
+.sidebar-group {
+  margin-bottom: 28px;
+}
+
+.sidebar-group p {
+  margin-bottom: 10px;
+  color: white;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.side-link {
+  width: 100%;
+  padding: 11px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+  color: var(--text);
+  background: transparent;
+  font-size: 16px;
+}
+
+.side-link:hover,
+.side-link.active {
+  color: var(--blue-light);
+}
+
+.docs-content {
+  padding: 44px 52px 90px;
+}
+
+.topic {
+  display: none;
+  max-width: 960px;
+}
+
+.topic--active {
+  display: block;
+  animation: fadeView 0.25s ease both;
+}
+
+.breadcrumb {
+  display: block;
+  margin-bottom: 14px;
+  color: #fafafa;
+}
+
+.topic h2 {
+  margin-bottom: 24px;
+  font-size: clamp(42px, 6vw, 50px);
+  line-height: 1;
+  letter-spacing: -0.06em;
+  color: white;
+}
+
+.topic h3 {
+  margin: 28px 0 12px;
+  font-size: 25px;
+}
+
+.lead {
+  color: #fcfcfc;
+
+  line-height: 1.7;
+}
+
+.docs-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.formula-box,
+.callout,
+.result-table,
+.steps {
+  margin-top: 26px;
+}
+
+.formula-box {
+  padding: 22px;
+  background: #07110d;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+}
+
+.formula-box span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.formula-box code {
+  color: var(--text);
+  font-size: 20px;
+}
+
+.result-table {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+}
+
+.result-table div {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 18px;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.result-table div:last-child {
+  border-bottom: 0;
+}
+
+.result-table strong {
+  color: var(--text);
+}
+
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.chip-list span {
+  padding: 10px 14px;
+  color: var(--green);
+  background: rgba(36, 209, 141, 0.1);
+  border: 1px solid rgba(36, 209, 141, 0.25);
+  border-radius: 999px;
+  font-weight: 850;
+}
+
+.callout {
+  display: flex;
+  gap: 14px;
+  padding: 18px;
+  color: var(--muted);
+  background: rgba(47, 128, 237, 0.08);
+  border: 1px solid rgba(47, 128, 237, 0.2);
+  border-radius: 18px;
+}
+
+.callout i {
+  color: var(--blue);
+  font-size: 28px;
+}
+
+.steps {
+  display: grid;
+  gap: 14px;
+}
+
+.steps div {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(17, 24, 21, 0.92);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  color: var(--muted);
+}
+
+.steps span {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  color: white;
+  background: var(--green-dark);
+  border-radius: 50%;
+  font-weight: 900;
+}
+
+.nice-list {
+  margin-top: 22px;
+  display: grid;
+  gap: 12px;
+  list-style: none;
+}
+
+.nice-list li {
+  padding: 14px 16px;
+  background: rgba(17, 24, 21, 0.92);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--muted);
+}
+
+.aside-card {
+  margin-bottom: 18px;
+  padding: 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+}
+
+.aside-title {
+  margin-bottom: 14px;
+  color: #fafafa;
+  font-weight: 900;
+}
+
+.aside-card button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  background: transparent;
+  border-radius: 10px;
+}
+
+.aside-card p {
+  font-size: 14px;
+}
+
+.aside-card button:hover {
+  color: var(--blue);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.feedback-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.feedback-actions button {
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+}
