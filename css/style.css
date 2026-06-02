@@ -70,11 +70,9 @@ a {
   top: 0;
   z-index: 100;
   padding: 0px 60px;
-
   background: rgba(52, 52, 52, 0.527);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-
   border-bottom: 1px solid rgba(255, 255, 255, 0.089);
 }
 
@@ -316,7 +314,7 @@ a {
   transition: transform 0.5s ease;
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(0.9);
   }
 }
 
@@ -327,7 +325,18 @@ a {
   transition: transform 0.5s ease;
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(0.9);
+  }
+}
+
+.secondary-btn.reforzar {
+  background: var(--blue-light);
+  color: #fafafa;
+  border: 1px solid var(--border);
+  transition: transform 0.5s ease;
+
+  &:hover {
+    transform: scale(0.9);
   }
 }
 
@@ -477,6 +486,7 @@ a {
 }
 
 .section-heading .developer {
+  font-size: clamp(36px, 5vw, 55px);
   font-family:
     system-ui,
     -apple-system,
@@ -851,7 +861,7 @@ a {
 .quiz-view {
   width: min(1180px, 92%);
   margin: 0 auto;
-  padding: 70px 0;
+  padding: 40px 0;
 }
 
 .quiz-layout {
@@ -863,9 +873,10 @@ a {
 .quiz-main,
 .quiz-status {
   padding: 28px;
-  background: #f7f9fc;
-  color: #111827;
-  border-radius: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: #ffffff;
+  border-radius: 14px;
 }
 
 .quiz-header {
@@ -875,7 +886,7 @@ a {
 }
 
 .quiz-header .eyebrow {
-  color: var(--blue);
+  color: var(--text);
 }
 
 .quiz-header h2 {
@@ -887,7 +898,7 @@ a {
   height: 8px;
   margin: 26px 0;
   overflow: hidden;
-  background: #e5eaf1;
+  background: var(--border);
   border-radius: 999px;
 }
 
@@ -901,20 +912,22 @@ a {
 
 .question-card {
   padding: 24px;
-  background: white;
-  border: 1px solid #e5eaf1;
-  border-radius: 20px;
+  background: rgba(52, 52, 52, 0.527);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: none;
+  border-radius: 8px;
 }
 
 .question-card p {
   margin-bottom: 10px;
-  color: #64748b;
-  font-weight: 850;
+  color: white;
+  font-weight: 500;
 }
 
 .question-card h3 {
   margin-bottom: 20px;
-  font-size: 22px;
+  font-size: 20px;
   line-height: 1.45;
 }
 
@@ -927,17 +940,17 @@ a {
   width: 100%;
   padding: 16px;
   text-align: left;
-  color: #111827;
-  background: #eef3f9;
+  color: #e2e4e9;
+  background: var(--bg-card);
   border: 2px solid transparent;
-  border-radius: 10px;
+  border-radius: 7px;
   font-weight: 750;
 }
 
 .answer-btn:hover,
 .answer-btn.selected {
-  border-color: var(--blue);
-  background: #eaf2ff;
+  border-color: var(--blue-light);
+  background: rgb(35, 34, 34);
 }
 
 /* Respuesta bloqueada: una vez seleccionada, ya no se puede cambiar */
@@ -965,8 +978,8 @@ a {
   padding: 24px;
   display: grid;
   place-items: center;
-  background: #eaf2ff;
-  border-radius: 18px;
+  background: var(--border);
+  border-radius: 8px;
 }
 
 .score-box strong {
@@ -974,7 +987,7 @@ a {
 }
 
 .score-box span {
-  color: #64748b;
+  color: var(--text);
   font-size: 13px;
 }
 
@@ -989,10 +1002,10 @@ a {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #eef3f9;
+  background: var(--border);
   border: 1px solid transparent;
-  border-radius: 10px;
-  color: #475569;
+  border-radius: 7px;
+  color: #ffffff;
 }
 
 .question-pill.current {
@@ -1430,8 +1443,9 @@ a {
   margin: 0 auto;
   padding: 36px;
   color: #111827;
-  background: var(--bg-card);
-  border-radius: 28px;
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border);
+  border-radius: 15px;
 }
 
 .quiz-welcome-card h2,
@@ -1487,29 +1501,23 @@ a {
   padding: 24px;
   text-align: left;
   color: var(--text);
-  background:
-    radial-gradient(
-      circle at top right,
-      rgba(47, 128, 237, 0.12),
-      transparent 13rem
-    ),
-    rgba(17, 24, 21, 0.9);
+  background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 24px;
+  border-radius: 8px;
 }
 
 .quiz-topic-card:hover {
-  border-color: var(--green);
   transform: translateY(-2px);
 }
 
 .quiz-topic-card i {
   margin-bottom: 18px;
-  color: var(--green);
+  color: var(--text);
   font-size: 38px;
 }
 
 .quiz-topic-card h3 {
+  color: white;
   margin-bottom: 10px;
   font-size: 24px;
 }
@@ -1523,10 +1531,10 @@ a {
   display: inline-flex;
   margin-top: 16px;
   padding: 8px 10px;
-  color: var(--green);
-  background: rgba(36, 209, 141, 0.1);
+  color: #fafafa;
+  background: var(--blue-light);
   border-radius: 999px;
-  font-weight: 900;
+  font-weight: 500;
 }
 
 .result-actions {
