@@ -66,6 +66,34 @@ a {
 }
 
 /* ======================================================
+  Scroll Custom
+====================================================== */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  backdrop-filter: blur(10px);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.docs-aside::-webkit-scrollbar {
+  display: none;
+}
+
+/* ======================================================
   TOPBAR
 ====================================================== */
 .topbar {
