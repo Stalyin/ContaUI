@@ -282,13 +282,23 @@
           <span class="breadcrumb">Unidad 3 / Overview</span>
           <h2>Facturación e impuestos</h2>
           <p class="lead">
-            En esta Sección aprenderás los conceptos básicos para comprender cómo una factura
-            registra valores como subtotal, IVA y total. Luego, esos datos serán usados por
-            el sistema para preparar un resumen básico del Formulario 104.
-            Tambien tendras guias del contribuyente que podras descargar para facilitar tu aprendizaje.
+            En esta sección aprenderás los conceptos principales para comprender cómo
+            funciona una factura, qué valores intervienen en el cálculo del IVA y cómo
+            estos datos pueden organizarse para preparar un resumen básico del Formulario 104.
           </p>
 
-          <p>Elije el tema por el que quieras comenzar</p>
+          <div class="learning-highlight">
+            <i class='bx bx-bulb'></i>
+            <div>
+              <h3>Objetivo de aprendizaje</h3>
+              <p>
+                Comprender la relación entre productos, facturas, IVA, compras, ventas y
+                declaración mensual, usando ejemplos sencillos y una futura simulación práctica.
+              </p>
+            </div>
+          </div>
+
+          <h3>¿Qué aprenderás?</h3>
 
           <div class="docs-card-grid">
             <button onclick="mostrarTema('iva')" class="docs-card">
@@ -306,19 +316,19 @@
             <button onclick="mostrarTema('subtotal')" class="docs-card">
               <i class='bx bx-file'></i>
               <h3>SubTotal</h3>
-              <p>Como obtener el subtotal de una factura.</p>
+              <p>Valor base antes de impuestos, descuentos o recargos.</p>
             </button>
 
             <button onclick="mostrarTema('electronica')" class="docs-card">
               <i class='bx bx-cart-alt' ></i>
               <h3>Facturación</h3>
-              <p>Conceptos y guias para realizar una factura.</p>
+              <p>Proceso digital para emitir comprobantes válidos.</p>
             </button>
 
             <button onclick="mostrarTema('declaraciones')" class="docs-card">
               <i class='bx bxs-calculator'></i>
               <h3>Declaraciones</h3>
-              <p>Como realizar declaraciones mensuales ante el SRI.</p>
+              <p>Registro mensual de impuestos cobrados y pagados.</p>
             </button>
             
             <button onclick="mostrarTema('formulario104')" class="docs-card">
@@ -333,22 +343,58 @@
           <span class="breadcrumb">Unidad 3 / Tema 1</span>
           <h2>Productos gravados con IVA</h2>
           <p class="lead">
-            Son bienes o servicios que están sujetos al pago del Impuesto al Valor Agregado.
-            El negocio cobra este impuesto al cliente y debe registrarlo en la factura.
+            Los productos gravados con IVA son bienes o servicios que están sujetos al
+            Impuesto al Valor Agregado <strong>(IVA)</strong>. Este impuesto se calcula sobre el valor de venta
+            del producto o servicio y debe registrarse correctamente en la factura.
           </p>
+
+          <p>
+            En una venta común, el cliente paga el valor del producto más el IVA. El negocio
+            recibe ese valor, pero el impuesto cobrado debe ser declarado posteriormente.
+            Por eso es importante que sepas como separar el subtotal, el IVA y el total.
+          </p>
+
+          <p>Tambien cabe recalcar que actualmente en el Ecuador los negocios obligados a gravar IVA son los negocios o empresas en el <strong>Regimen General y Rimpe Emprendedor</strong></p>
+
 
           <div class="formula-box">
             <span>Fórmula</span>
-            <code>IVA = Subtotal × Tasa de IVA</code>
+            <p><span>IVA= </span> Subtotal × Tasa de IVA</p>
           </div>
 
+          <h3>Características principales</h3>
+
+          <ul class="nice-list">
+            <li>El IVA se aplica sobre productos o servicios gravados.</li>
+            <li>Debe mostrarse de forma clara en la factura.</li>
+            <li>El consumidor final es quien paga el impuesto.</li>
+            <li>El negocio debe registrar el IVA cobrado en sus ventas.</li>
+            <li>El IVA de ventas puede compararse con el IVA pagado en compras.</li>
+          </ul>
+
           <h3>Ejemplo práctico</h3>
-          <p>Una laptop cuesta $800 y el IVA es 15%.</p>
+
+          <p>Si una laptop cuesta $800 y la tarifa de IVA es 15%, el cálculo sería:</p>
+
           <div class="result-table">
             <div><span>Subtotal</span><strong>$800.00</strong></div>
             <div><span>IVA 15%</span><strong>$120.00</strong></div>
             <div><span>Total</span><strong>$920.00</strong></div>
           </div>
+
+          <div class="resource-box">
+            <div>
+              <h3>Material complementario</h3>
+            </div>
+
+            <div class="resource-actions">
+              <a href="#" class="resource-btn" target="_blank">
+                <i class='bx bx-file'></i>
+                Descargar guía de IVA
+              </a>
+            </div>
+          </div>
+
         </div>
 
         <div id="topic-tarifa0" class="topic">
@@ -358,6 +404,9 @@
             Son bienes o servicios que no pagan IVA, aunque sí deben registrarse en facturas
             y declaraciones tributarias.
           </p>
+          <p>Tambien cabe tener en cuenta que los negocios que esten en el <strong>Regimen Negocio Popular</strong> pueden facturar con tariga 0 </p>
+
+          <h3>Productos con tarifa 0%</h3>
 
           <div class="chip-list">
             <span>Arroz</span>
@@ -375,6 +424,20 @@
               Se registra, pero su IVA es $0.
             </p>
           </div>
+
+          <div class="resource-box">
+            <div>
+              <h3>Material complementario</h3>
+            </div>
+
+            <div class="resource-actions">
+              <a href="https://www.sri.gob.ec/o/sri-portlet-biblioteca-alfresco-internet/descargar/38e837fe-49b1-460c-983e-efd39fd04303/Bienes%20y%20servicios%20gravados%20con%20tarifa%20cero%20porciento%20del%20IVA.pdf" class="resource-btn" target="_blank">
+                <i class='bx bx-file'></i>
+                Descargar guía de IVA
+              </a>
+            </div>
+          </div>
+
         </div>
 
         <div id="topic-subtotal" class="topic">
@@ -416,16 +479,61 @@
           <span class="breadcrumb">Unidad 3 / Tema 6</span>
           <h2>Facturación electrónica</h2>
           <p class="lead">
-            Es un sistema digital para emitir comprobantes electrónicos válidos. En un sistema
-            real puede incluir PDF, XML, firma electrónica y autorización.
+              La facturación es el proceso mediante el cual una empresa o persona emite un documento digital (Factura) para registrar la venta de bienes o la prestación de servicios. La factura sirve como comprobante legal y tributario de una transacción comercial.
+
+              En Ecuador, estos comprobantes son autorizados por
+              el SRI y enviados al cliente en formato digital.
           </p>
 
+          <p>
+            A diferencia de una factura física tradicional, la factura electrónica permite
+            automatizar procesos, reducir errores, almacenar documentos y facilitar el control
+            de compras, ventas e impuestos.
+          </p>
+
+           <h3>Proceso general</h3>
+
           <div class="steps">
-            <div><span>1</span> Generar factura</div>
-            <div><span>2</span> Firmar electrónicamente</div>
-            <div><span>3</span> Enviar al SRI</div>
-            <div><span>4</span> Recibir autorización</div>
+            <div><span>1</span> Se registran los datos del cliente y los productos.</div>
+            <div><span>2</span> El sistema calcula subtotal, IVA y total.</div>
+            <div><span>3</span> Se genera el comprobante electrónico.</div>
+            <div><span>4</span> En un sistema real, el documento se firma electrónicamente.</div>
+            <div><span>5</span> El comprobante se envía para autorización y luego al cliente.</div>
           </div>
+
+          <h3>Video recomendado</h3>
+          
+          <div class="video-learning">
+            <iframe 
+              src="https://www.youtube.com/embed/QnPhMkQvuP0"
+              title="Facturación electrónica en Ecuador"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+
+          <div class="resource-box">
+            <div>
+              <h3>Documentos de apoyo</h3>
+              <p>
+                Agrega aquí enlaces a guías oficiales sobre facturación electrónica.
+              </p>
+            </div>
+
+            <div class="resource-actions">
+              <a href="#" class="resource-btn" target="_blank">
+                <i class='bx bx-file'></i>
+                Guía facturación electrónica
+              </a>
+
+              <a href="#" class="resource-btn" target="_blank">
+                <i class='bx bx-link-external'></i>
+                Ver portal oficial
+              </a>
+            </div>
+          </div>
+
         </div>
 
         <div id="topic-declaraciones" class="topic">
@@ -449,18 +557,86 @@
           <span class="breadcrumb">Unidad 3 / Tema 8</span>
           <h2>Formulario 104</h2>
           <p class="lead">
-            Es el documento utilizado en Ecuador para declarar el IVA ante el SRI.
-            El mini sistema puede ayudar a organizar ventas gravadas, ventas tarifa 0%,
-            compras e IVA.
+            El Formulario 104 es utilizado en Ecuador para declarar el IVA. Permite informar
+            valores relacionados con ventas, compras, IVA generado, IVA pagado y valores finales
+            que pueden resultar a pagar.
           </p>
 
+          <p>
+            Para comprenderlo de forma sencilla, podemos imaginar que el sistema recopila
+            las facturas de venta y compra de un período. Luego separa los valores gravados
+            con IVA, tarifa 0% y calcula la diferencia entre el IVA cobrado y el IVA pagado.
+          </p>
+
+          <h3>Datos que puede organizar el sistema</h3>
+
+          <ul class="nice-list">
+            <li>Ventas gravadas con IVA.</li>
+            <li>Ventas tarifa 0%.</li>
+            <li>Compras gravadas con IVA.</li>
+            <li>IVA generado en ventas.</li>
+            <li>IVA pagado en compras.</li>
+            <li>Crédito tributario básico.</li>
+            <li>IVA estimado a pagar.</li>
+          </ul>
+
+          <h3>Ejemplo simplificado</h3>
+
           <div class="result-table">
-            <div><span>Ventas 15%</span><strong>$5000</strong></div>
-            <div><span>IVA ventas</span><strong>$750</strong></div>
-            <div><span>Compras</span><strong>$3000</strong></div>
-            <div><span>IVA compras</span><strong>$450</strong></div>
-            <div><span>IVA a pagar</span><strong>$300</strong></div>
+            <div><span>Ventas 15%</span><strong>$5000.00</strong></div>
+            <div><span>IVA ventas</span><strong>$750.00</strong></div>
+            <div><span>Compras</span><strong>$3000.00</strong></div>
+            <div><span>IVA compras</span><strong>$450.00</strong></div>
+            <div><span>IVA a pagar</span><strong>$300.00</strong></div>
           </div>
+
+          <div class="formula-box">
+            <span>Fórmula educativa</span>
+            <code>IVA a pagar = IVA ventas - IVA compras</code>
+          </div>
+
+          <div class="learning-highlight">
+            <i class='bx bx-error-circle'></i>
+            <div>
+              <h3>Evita multas</h3>
+              <p>
+                Llevar un registro ordenado de compras y ventas ayuda a revisar los valores
+                antes de una declaración. Este sistema será una simulación educativa para
+                comprender el proceso, no una herramienta oficial de declaración.
+              </p>
+            </div>
+          </div>
+
+          <div class="resource-box">
+            <div>
+              <h3>PDFs y guías del SRI</h3>
+            </div>
+
+            <div class="resource-actions">
+              <a href="https://aulavirtual.saber-ecuador.com/pluginfile.php/29400/mod_resource/content/5/2.%20Clase%202-%20Declaraci%C3%B3n%20de%20IVA%2015%25%20%281%29.pdf" class="resource-btn" target="_blank">
+                <i class='bx bx-file'></i>
+                Guía Formulario 104
+              </a>
+
+              <a href="https://www.sri.gob.ec/o/sri-portlet-biblioteca-alfresco-internet/descargar/6fc12b52-cb7b-4114-a5a6-dc9abf194e9c/Formulario+104+2016.xls" class="resource-btn" target="_blank">
+                <i class='bx bx-download'></i>
+                Descargar ejemplo
+              </a>
+            </div>
+          </div>
+
+          <h3>Video recomendado</h3>
+          
+          <div class="video-learning">
+            <iframe 
+              src="https://www.youtube.com/embed/ejvJJoeWDGUs"
+              title="Declaracion IVA en Ecuador"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+
         </div>
 
         <div id="topic-impuestos" class="topic">
