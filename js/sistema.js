@@ -454,7 +454,9 @@ function pintarConsultasSistema() {
             <span>RUC: ${item.ruc}</span>
             <span>IVA ventas: ${dinero(item.ivaVentas)}</span>
             <span>IVA compras: ${dinero(item.ivaCompras)}</span>
-            <strong class="consulta-total">Total a pagar: ${dinero(item.ivaPagar)}</strong>
+            </div>
+            <div>
+            <strong class="consulta-total">A Pagar: ${dinero(item.ivaPagar)}</strong>
             </div>
         </div>
         `;

@@ -1618,31 +1618,79 @@ a {
   --bg-soft: #ffffff;
   --bg-card: #ffffff;
   --bg-card-2: #f1f5f9;
-  --border: #dfe5ec;
+  --border: #b6bbc2;
+  --bg-card-blue: rgba(9, 80, 255, 0.08);
+  --bg-border-blue: rgba(9, 80, 255, 0.25);
   --text: #101827;
   --muted: #5d6b7a;
   --green: #0ca66f;
   --green-dark: #078658;
   --blue: #2563eb;
+  --blue-light: rgb(0, 85, 255);
+  --blue-hover: #084fa8;
   --danger: #dc2626;
   --white: #ffffff;
   --light: #ffffff;
+  --orange: orange;
   --shadow: 0 24px 70px rgba(15, 23, 42, 0.12);
+  --black: rgb(0, 0, 0);
+  --text-3: #111827;
+  --text-2: #64748b;
 }
 
-:root[data-theme="light"] body {
-  background:
-    radial-gradient(
-      circle at top left,
-      rgba(12, 166, 111, 0.16),
-      transparent 34rem
-    ),
-    radial-gradient(
-      circle at top right,
-      rgba(37, 99, 235, 0.1),
-      transparent 28rem
-    ),
-    var(--bg);
+:root[data-theme="light"] .brand-footer,
+:root[data-theme="light"] .sistema-topbar {
+  border-bottom: 1px solid var(--border);
+}
+
+:root[data-theme="light"] .sistema-topbar {
+  background: rgb(255, 255, 255);
+}
+
+:root[data-theme="light"] .sistema-main {
+  background: rgb(242, 255, 252);
+}
+
+:root[data-theme="light"] .sidebar-menu button.active,
+:root[data-theme="light"] .sidebar-menu button:hover,
+:root[data-theme="light"] .step-tabs button.active {
+  background: var(--blue-light);
+  color: white;
+}
+
+:root[data-theme="light"] .nice-list li,
+:root[data-theme="light"] .contaui-input,
+:root[data-theme="light"] .contaui-select {
+  border: 1px solid var(--border) !important;
+  background: white !important;
+}
+
+:root[data-theme="light"] .contaui-input::placeholder {
+  color: var(--text-2) !important;
+}
+
+:root[data-theme="light"] .contaui-input,
+:root[data-theme="light"] .contaui-select {
+  color: var(--black);
+}
+
+:root[data-theme="light"] .step-tabs button {
+  background: var(--border);
+  color: black;
+}
+
+:root[data-theme="light"] .dropdown-panel button:hover,
+:root[data-theme="light"] .aside-title {
+  color: var(--black);
+}
+
+:root[data-theme="light"] .dropdown-panel,
+:root[data-theme="light"] .aside-card {
+  border: 1px solid var(--border) !important;
+}
+
+:root[data-theme="light"] .footer-copy {
+  border-top: 1px solid var(--border);
 }
 
 :root[data-theme="light"] .topbar {
@@ -1671,7 +1719,7 @@ a {
 :root[data-theme="light"] .quiz-result-card {
   background: rgba(255, 255, 255, 0.92);
   color: var(--text);
-  border-color: var(--border);
+  border-color: 1px solid var(--border);
 }
 
 :root[data-theme="light"] .dropdown-panel {
@@ -2039,21 +2087,6 @@ a {
 /* ======================================================
   SISTEMA 104 - MODO CLARO POR DEFECTO
 ====================================================== */
-:root[data-theme="light"] {
-  --bg: #f3f6fb;
-  --bg-soft: #ffffff;
-  --bg-card: #ffffff;
-  --bg-card-2: #eef3f8;
-  --bg-card-blue: rgba(9, 80, 255, 0.08);
-  --bg-border-blue: rgba(9, 80, 255, 0.25);
-  --border: #d8e0ea;
-  --text: #334155;
-  --text-2: #64748b;
-  --text-3: #0f172a;
-  --muted: #64748b;
-  --blue-light: #0b63ce;
-  --blue-hover: #084fa8;
-}
 
 :root[data-theme="light"] body.sistema-body {
   background: #f3f6fb;
@@ -2455,21 +2488,6 @@ a {
 }
 
 /* Modo claro para index */
-:root[data-theme="light"] {
-  --bg: #f3f6fb;
-  --bg-soft: #ffffff;
-  --bg-card: #ffffff;
-  --bg-card-2: #eef3f8;
-  --bg-card-blue: rgba(9, 80, 255, 0.08);
-  --bg-border-blue: rgba(9, 80, 255, 0.25);
-  --border: #d8e0ea;
-  --text: #334155;
-  --text-2: #64748b;
-  --text-3: #0f172a;
-  --muted: #64748b;
-  --blue-light: #0b63ce;
-  --blue-hover: #084fa8;
-}
 
 :root[data-theme="light"] body {
   background: var(--bg);
@@ -2501,6 +2519,7 @@ a {
 :root[data-theme="light"] .nav-link,
 :root[data-theme="light"] .section-heading h2,
 :root[data-theme="light"] .hero-content h1,
+:root[data-theme="light"] .offer-content h2,
 :root[data-theme="light"] .quiz-topic-card h3,
 :root[data-theme="light"] .testimonial-card strong,
 :root[data-theme="light"] .topic h2,
@@ -2511,9 +2530,31 @@ a {
   color: var(--text-3);
 }
 
+:root[data-theme="light"] .eyebrow {
+  background: var(--black);
+}
+
+:root[data-theme="light"] .primary-btn {
+  background: var(--blue-light);
+  color: white;
+}
+
+:root[data-theme="light"] .secondary-btn {
+  background: var(--black);
+  color: white;
+}
+
+:root[data-theme="light"] .trust-row span {
+  color: var(--text-3);
+}
+
+:root[data-theme="light"] .brands {
+  background: var(--bg);
+}
+
 :root[data-theme="light"] .nav-link.active {
-  background: var(--blue-light) !important;
-  color: white !important;
+  color: var(--blue-light);
+  font-weight: 500;
 }
 
 :root[data-theme="light"] .question-card {
@@ -2545,18 +2586,19 @@ a {
 .answer-btn.correct-answer {
   border-color: #16a34a !important;
   background: rgba(22, 163, 74, 0.18) !important;
-  color: #dcfce7 !important;
+  color: white !important;
 }
 
 .answer-btn.wrong-answer {
   border-color: #dc2626 !important;
   background: rgba(220, 38, 38, 0.18) !important;
-  color: #fee2e2 !important;
+  color: #ffffff !important;
 }
 
 :root[data-theme="light"] .answer-btn.correct-answer {
   background: #dcfce7 !important;
   color: #14532d !important;
+  color: white !important;
 }
 
 :root[data-theme="light"] .answer-btn.wrong-answer {
@@ -2572,7 +2614,7 @@ a {
   padding: 14px;
   border-radius: 10px;
   line-height: 1.5;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .question-feedback i {
@@ -2587,7 +2629,7 @@ a {
 
 .question-feedback.feedback-bad {
   background: rgba(220, 38, 38, 0.16);
-  color: #fecaca;
+  color: #ffffff;
   border: 1px solid rgba(220, 38, 38, 0.35);
 }
 
@@ -2756,9 +2798,9 @@ a {
 #resIvaPagar,
 .consulta-total {
   margin-left: auto;
-  color: var(--focus-yellow) !important;
+  color: orange !important;
   font-size: 24px;
-  font-weight: 900;
+  font-weight: 700;
   text-align: right;
 }
 
@@ -2831,10 +2873,6 @@ a {
 }
 
 /* Correcciones light mode del sistema */
-:root[data-theme="light"] {
-  --text-3: #111827;
-  --text-2: #64748b;
-}
 
 :root[data-theme="light"] .sistema-body,
 :root[data-theme="light"] .system-panel,
@@ -2846,12 +2884,9 @@ a {
   color: #111827;
 }
 
-:root[data-theme="light"] .sri-form-table {
+:root[data-theme="light"] .sri-form-table,
+:root[data-theme="light"] .sri-row input {
   background: #ffffff;
-}
-
-:root[data-theme="light"] .sri-row {
-  color: #111827;
 }
 
 :root[data-theme="light"]
@@ -2867,8 +2902,7 @@ a {
 }
 
 /* ======================================================
-  NORMALIZACIÓN DE SELECTORES ANIDADOS
-  Se separaron reglas tipo SCSS (&:hover, & img, etc.) para que el CSS sea válido.
+
 ====================================================== */
 .login-btn:hover {
   background: var(--blue-hover);
@@ -2879,6 +2913,17 @@ a {
 .secondary-btn.reforzar:hover,
 .secondary-btn.danger:hover {
   transform: scale(0.9);
+}
+
+.secondary-btn.whatsap {
+  display: flex;
+  gap: 5px;
+  background: #4fce5d;
+  color: white;
+
+  & i {
+    font-size: 20px;
+  }
 }
 
 .hero-brand img {
@@ -3401,14 +3446,13 @@ a {
     position: sticky;
     top: 76px;
     z-index: 80;
-    width: 25px;
+    width: 45px;
     margin: 14px;
     min-height: 46px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background: var(--border);
     color: white;
     border-radius: 8px;
     font-weight: 700;

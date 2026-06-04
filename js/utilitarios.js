@@ -119,3 +119,43 @@ function validarRucBasico(ruc) {
     return false;
   }
 }
+
+let accionModalReusable = null;
+
+function abrirModalReusable(configuracion) {
+  let modal = obtenerElemento(configuracion.idModal);
+
+  if (modal === null) {
+    console.error("No existe el modal:", configuracion.idModal);
+    return;
+  }
+
+  if (configuracion.idTitulo) {
+    mostrarTexto(configuracion.idTitulo, configuracion.titulo || "");
+  }
+
+  if (configuracion.idTexto) {
+    mostrarTexto(configuracion.idTexto, configuracion.texto || "");
+  }
+
+  accionModalReusable = configuracion.accion || null;
+  modal.classList.add("show");
+}
+
+function cerrarModalReusable(idModal) {
+  let modal = obtenerElemento(idModal);
+
+  if (modal !== null) {
+    modal.classList.remove("show");
+  }
+
+  accionModalReusable = null;
+}
+
+function confirmarModalReusable(idModal) {
+  if (accionModalReusable !== null) {
+    accionModalReusable();
+  }
+
+  cerrarModalReusable(idModal);
+}
