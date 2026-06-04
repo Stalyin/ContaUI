@@ -167,7 +167,8 @@ function contarGithub() {
   localStorage.setItem("githubClicks", clicks);
   obtenerElemento("contadorGithub").innerText = clicks;
 
-  alert("Aquí puedes colocar el enlace real del repositorio de GitHub.");
+  let url = "https://github.com/ScarlettCordova/contaUI";
+  window.open(url, "_blank");
 }
 
 function cargarContadorGithub() {

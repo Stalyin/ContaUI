@@ -184,7 +184,7 @@ function obtenerPreguntasPorTema(tema) {
     let temas = ["iva", "tarifa0", "subtotal", "formulario104"];
 
     for (let i = 0; i < temas.length; i++) {
-      let preguntasTema = mezclarArray(bancoPreguntas[temas[i]]).slice(0, 3);
+      let preguntasTema = mezclarArray(bancoPreguntas[temas[i]]).slice(0, 2);
 
       for (let j = 0; j < preguntasTema.length; j++) {
         preguntas.push(preguntasTema[j]);
@@ -193,7 +193,7 @@ function obtenerPreguntasPorTema(tema) {
 
     preguntas = mezclarArray(preguntas);
   } else {
-    preguntas = mezclarArray(bancoPreguntas[tema]).slice(0, 10);
+    preguntas = mezclarArray(bancoPreguntas[tema]).slice(0, 5);
   }
 
   let preparadas = [];
@@ -580,7 +580,7 @@ function finalizarCuestionario() {
   } else if (correctas >= Math.ceil(total * 0.5)) {
     resultadoCard.classList.add("warning");
     obtenerElemento("resultadoTitulo").innerText =
-      "Vas bien, " + participante.nombre;
+      "Genial, " + participante.nombre;
     obtenerElemento("resultadoDetalle").innerText =
       "Respondiste " +
       correctas +
@@ -590,7 +590,7 @@ function finalizarCuestionario() {
   } else {
     resultadoCard.classList.add("danger");
     obtenerElemento("resultadoTitulo").innerText =
-      "Necesitas reforzar, " + participante.nombre;
+      "Losiento, " + participante.nombre;
     obtenerElemento("resultadoDetalle").innerText =
       "Respondiste " +
       correctas +
@@ -660,6 +660,7 @@ function enviarResultadoWhatsapp() {
   let tiempoTexto =
     ultimoResultadoQuiz.tiempo || obtenerTiempoTranscurridoTexto();
 
+  let numero = 593963313195;
   let mensaje =
     "Hola, soy " +
     participante.nombre +
@@ -673,7 +674,8 @@ function enviarResultadoWhatsapp() {
     tiempoTexto +
     ".";
 
-  let url = "https://wa.me/?text=" + encodeURIComponent(mensaje);
+  let url =
+    "https://wa.me/" + `${numero}` + "?text=" + encodeURIComponent(mensaje);
   window.open(url, "_blank");
 }
 
