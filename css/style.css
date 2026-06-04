@@ -2687,8 +2687,8 @@ a {
 }
 
 .custom-modal__icon.success {
-  color: #16a34a;
-  background: rgba(22, 163, 74, 0.14);
+  color: #ffffff;
+  background: rgba(0, 240, 88, 0.305);
 }
 
 .custom-modal__card h3 {
@@ -2961,8 +2961,241 @@ a {
 }
 
 /* ======================================================
+  DASHBOARD
+====================================================== */
+
+.dashboard-page {
+  width: min(1280px, 94%);
+  margin: 0 auto;
+  padding: 34px 0 70px;
+}
+
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 28px 0;
+}
+
+.dashboard-stats article {
+  padding: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.dashboard-stats span {
+  display: block;
+  color: var(--text-3);
+  font-size: 14px;
+}
+
+.dashboard-stats strong {
+  display: block;
+  margin-top: 10px;
+  color: var(--text-3);
+  font-size: 30px;
+}
+
+.dashboard-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+}
+
+.dashboard-table {
+  width: 100%;
+  min-width: 1050px;
+  border-collapse: collapse;
+  background: var(--bg-card);
+}
+
+.dashboard-table th,
+.dashboard-table td {
+  padding: 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  color: white;
+  font-size: 14px;
+}
+
+.dashboard-table th {
+  color: white;
+  background: var(--bg-border-blue);
+  font-weight: normal;
+}
+
+.dashboard-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.dashboard-badge {
+  min-width: 60px;
+  padding: 6px 10px;
+  display: inline-flex;
+  justify-content: center;
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.dashboard-badge.ok {
+  color: #05531f;
+  background: #23cd5e;
+}
+
+.dashboard-badge.warning {
+  color: #a93109;
+  background: #fbb457;
+}
+
+.dashboard-badge.bad {
+  color: #531414;
+  background: #fe6c6c;
+}
+
+.dashboard-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dashboard-btn {
+  min-height: 34px;
+  padding: 0 12px;
+  color: white;
+  background: var(--blue-light);
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+.dashboard-btn.danger {
+  background: #dc2626;
+}
+
+.dashboard-modal-card {
+  width: min(780px, 96%);
+  max-height: 88vh;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.dashboard-modal-card .custom-modal__icon {
+  margin-left: 0;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  text-align: left;
+}
+
+.custom-btn-modal button i {
+  font-size: 18px;
+}
+
+.custom-btn-modal button {
+  background: none !important;
+}
+
+.detalle-preguntas {
+  display: grid;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.detalle-card {
+  padding: 16px;
+  border-radius: 14px;
+  border: 4px solid var(--border);
+  background: var(--border);
+}
+
+.detalle-card.correcta {
+  border-color: rgba(17, 236, 98, 0.45);
+}
+
+.detalle-card.incorrecta {
+  border-color: rgba(255, 0, 0, 0.495);
+}
+
+.detalle-card__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.detalle-card__header strong {
+  color: var(--text-3);
+}
+
+.detalle-card__header span {
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: white;
+  background: var(--blue-light);
+  font-size: 12px;
+}
+
+.detalle-card.correcta .detalle-card__header span {
+  background: #16a34a;
+}
+
+.detalle-card.incorrecta .detalle-card__header span {
+  background: #dc2626;
+}
+
+.detalle-card p {
+  color: white;
+  line-height: 1.6;
+}
+
+.detalle-respuesta {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  gap: 4px;
+  margin-top: 12px;
+}
+
+.detalle-respuesta span {
+  color: var(--text-3);
+  font-size: 13px;
+}
+
+.detalle-respuesta strong {
+  color: var(--text-3);
+  font-weight: normal;
+}
+
+@media (max-width: 880px) {
+  .dashboard-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-page {
+    width: min(100% - 24px, 1280px);
+  }
+}
+
+@media (max-width: 520px) {
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-actions {
+    display: grid;
+  }
+
+  .dashboard-btn {
+    width: 100%;
+  }
+}
+
+/* ======================================================
   RESPONSIVE CONSOLIDADO
-  Breakpoints agrupados en un solo bloque por ancho.
 ====================================================== */
 
 /* ---------- (max-width: 1180px) ---------- */

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Dashboard | Conta UI</title>
+
+  <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script>
+    (function () {
+      var temaSistema = localStorage.getItem("temaSistemaContaUI") || "dark";
+      document.documentElement.setAttribute("data-theme", temaSistema);
+    })();
+  </script>
+
+</head>
+<body class="sistema-body">
+
+  <header class="sistema-topbar">
+    <a href="index.html" class="sistema-brand">
+      <i class='bx bx-left-arrow-alt'></i>
+      <span>Conta UI</span>
+    </a>
+
+    <div class="sistema-top-actions">
+      <button class="secondary-btn danger" onclick="cargarResultadosDashboard()">
+        <i class='bx bx-refresh'></i>
+        Actualizar
+      </button>
+    </div>
+  </header>
+
+  <main class="dashboard-page">
+    <section class="system-panel">
+      <span class="eyebrow">Panel Respuestas</span>
+
+      <h1>Resultados del quiz</h1>
+
+      <p>
+        Tabla para revisar respuesta de los estudiantes
+      </p>
+
+      <div class="dashboard-stats">
+        <article>
+          <span>Total Participantes</span>
+          <strong id="statIntentos">0</strong>
+        </article>
+
+        <article>
+          <span>Promedio general</span>
+          <strong id="statPromedio">0%</strong>
+        </article>
+
+        <article>
+          <span>Aprobados</span>
+          <strong id="statAprobados">0</strong>
+        </article>
+
+        <article>
+          <span>Por reforzar</span>
+          <strong id="statReforzar">0</strong>
+        </article>
+      </div>
+
+      <div class="dashboard-table-wrap">
+        <table class="dashboard-table">
+          <thead>
+            <tr>
+              <th>Estudiante</th>
+              <th>Correo</th>
+              <th>Tema</th>
+              <th>Nota</th>
+              <th>Porcentaje</th>
+              <th>Tiempo</th>
+              <th>Fecha</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody id="tablaResultadosDashboard">
+            <tr>
+              <td colspan="8">Cargando resultados...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal detalle -->
+    <div class="custom-modal" id="modalDetalleResultado">
+        <div class="custom-modal__card dashboard-modal-card">
+        
+        <div class="modal-header">
+
+            <div class="custom-modal__icon success">
+            <i class='bx bx-list-check'></i>
+            </div>
+
+            <div class="custom-btn-modal">
+                <button class="secondary-btn danger" onclick="cerrarModalDetalle()">
+                <i class='bx bx-exit'></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="header-info">
+                <h3 id="detalleTitulo">Detalle del intento</h3>
+                <p id="detalleResumen"></p>
+            </div>
+
+        <div id="detallePreguntas" class="detalle-preguntas"></div>
+
+        </div>
+    </div>
+
+  <!-- Modal eliminar resultado -->
+    <div class="custom-modal" id="modalEliminarResultado">
+    <div class="custom-modal__card">
+        <div class="custom-modal__icon warning">
+        <i class='bx bx-error-circle'></i>
+        </div>
+
+        <h3>Eliminar resultado</h3>
+
+        <p id="textoEliminarResultado">
+        ¿Seguro que deseas eliminar este resultado?
+        </p>
+
+        <div class="custom-modal__actions">
+        <button class="secondary-btn" onclick="cerrarModalEliminarResultado()">
+            Cancelar
+        </button>
+
+        <button class="secondary-btn danger" onclick="confirmarEliminarResultado()">
+            Sí, eliminar
+        </button>
+        </div>
+    </div>
+    </div>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+
+  <!-- Dashboard -->
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
