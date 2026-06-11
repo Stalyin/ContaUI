@@ -1679,6 +1679,15 @@ a {
   color: black;
 }
 
+:root[data-theme="light"] .score-box strong,
+.score-box span {
+  color: white;
+}
+
+:root[data-theme="light"] .score-box {
+  background: var(--blue-light);
+}
+
 :root[data-theme="light"] .dropdown-panel button:hover,
 :root[data-theme="light"] .aside-title {
   color: var(--black);
@@ -1766,6 +1775,7 @@ a {
 :root[data-theme="light"] .question-pill {
   background: #eef2f7;
   color: #101827;
+  border: 1px solid var(--border);
 }
 
 :root[data-theme="light"] .answer-btn:hover,
@@ -2532,6 +2542,11 @@ a {
 
 :root[data-theme="light"] .eyebrow {
   background: var(--black);
+  color: white;
+}
+
+:root[data-theme="light"] .question-card p {
+  color: var(--text-2);
 }
 
 :root[data-theme="light"] .primary-btn {
@@ -2598,7 +2613,6 @@ a {
 :root[data-theme="light"] .answer-btn.correct-answer {
   background: #dcfce7 !important;
   color: #14532d !important;
-  color: white !important;
 }
 
 :root[data-theme="light"] .answer-btn.wrong-answer {
