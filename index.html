@@ -878,10 +878,43 @@
               <li>Identificar bien la base evita cobrar de más o de menos.</li>
             </ul>
 
+            <h3>Tabla base imponible</h3>
+
             <div class="result-table">
               <div><span>Base imponible</span><strong>$200.00</strong></div>
               <div><span>Tasa</span><strong>× 15%</strong></div>
               <div><span>Impuesto</span><strong>= $30.00</strong></div>
+            </div>
+
+            <div class="interactive-example">
+              <div>
+                <span class="eyebrow">Ejemplo práctico</span>
+                <h3>Calculadora de impuesto</h3>
+                <p>Ingresa una base imponible y una tasa para calcular el impuesto y el total automáticamente.</p>
+              </div>
+
+              <div class="result-table">
+                <div>
+                  <span>Base imponible</span>
+                  <input type="number" id="impuestoBase" placeholder="Ejemplo: 200" min="0" step="0.01">
+                </div>
+                <div>
+                  <span>Tasa (%)</span>
+                  <input type="number" id="impuestoTasa" placeholder="Ejemplo: 15" min="0" step="0.01" value="15">
+                </div>
+                <div>
+                  <span>Impuesto calculado</span>
+                  <strong id="impuestoResultado">$0.00</strong>
+                </div>
+                <div>
+                  <span>Total (base + impuesto)</span>
+                  <strong id="impuestoTotalResultado">$0.00</strong>
+                </div>
+              </div>
+
+              <div class="btn-calculator">
+                <button class="primary-btn" onclick="calcularImpuestoBasicoAprendizaje()">Calcular impuesto</button>
+              </div>
             </div>
 
             <div class="learning-highlight">
