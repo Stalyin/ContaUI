@@ -17,6 +17,8 @@ let calculoActual = {
   ivaPagar: 0,
 };
 
+let ventasSistema = [];
+
 function cambiarTemaSistema() {
   let actual = document.documentElement.getAttribute("data-theme") || "light";
   let nuevo = actual === "light" ? "dark" : "light";
@@ -27,7 +29,7 @@ function cambiarTemaSistema() {
 }
 
 function actualizarIconoTemaSistema() {
-  let boton = obtenerElemento("themeSistemaBtn");
+  let boton = obtenerElemento("botonTemaSistema");
 
   if (boton === null) {
     return;
@@ -53,15 +55,31 @@ function mostrarModuloSistema(modulo) {
     vistas[i].classList.remove("active");
   }
 
-  let botones = ["btnConfigSistema", "btnFormSistema", "btnConsultasSistema"];
+  let botones = ["botonConfiguracion", "botonVentas", "botonFormulario", "botonConsultas"];
 
   for (let i = 0; i < botones.length; i++) {
-    obtenerElemento(botones[i]).classList.remove("active");
+    let boton = obtenerElemento(botones[i]);
+
+    if (boton !== null) {
+      boton.classList.remove("active");
+    }
   }
 
   if (modulo === "configuracion") {
-    obtenerElemento("viewConfiguracion").classList.add("active");
-    obtenerElemento("btnConfigSistema").classList.add("active");
+    obtenerElemento("vistaConfiguracion").classList.add("active");
+    obtenerElemento("botonConfiguracion").classList.add("active");
+  }
+
+  if (modulo === "ventas") {
+    if (!configuracionCompleta()) {
+      alert("Primero guarda la configuración del contribuyente.");
+      mostrarModuloSistema("configuracion");
+      return;
+    }
+
+    obtenerElemento("vistaVentas").classList.add("active");
+    obtenerElemento("botonVentas").classList.add("active");
+    pintarVentasSistema();
   }
 
   if (modulo === "formulario104") {
@@ -71,14 +89,14 @@ function mostrarModuloSistema(modulo) {
       return;
     }
 
-    obtenerElemento("viewFormulario104").classList.add("active");
-    obtenerElemento("btnFormSistema").classList.add("active");
+    obtenerElemento("vistaFormulario104").classList.add("active");
+    obtenerElemento("botonFormulario").classList.add("active");
     actualizarPagoSistema();
   }
 
   if (modulo === "consultas") {
-    obtenerElemento("viewConsultas").classList.add("active");
-    obtenerElemento("btnConsultasSistema").classList.add("active");
+    obtenerElemento("vistaConsultas").classList.add("active");
+    obtenerElemento("botonConsultas").classList.add("active");
     pintarConsultasSistema();
   }
 }
@@ -417,11 +435,7 @@ function ejecutarGuardarDeclaracionSistema() {
 
   declaraciones.push(nuevaDeclaracion);
   guardarLocal("declaracionesContaUI", declaraciones);
-
-  // Reinicia el Formulario 104 para que la próxima declaración empiece desde Período fiscal.
   reiniciarFormulario104DespuesDeGuardar();
-
-  // Luego muestra el listado de consultas con la declaración recién guardada.
   mostrarModuloSistema("consultas");
 }
 
@@ -466,7 +480,6 @@ function pintarConsultasSistema() {
 }
 
 function reiniciarFormulario104DespuesDeGuardar() {
-  // Limpia únicamente la declaración actual, no borra la configuración del contribuyente.
   obtenerElemento("periodoObligacion").value = "";
   obtenerElemento("periodoMes").value = "";
   obtenerElemento("periodoAnio").value = "2026";
@@ -538,16 +551,179 @@ function limpiarSistemaDemo() {
 
   localStorage.removeItem("configuracionContaUI");
   localStorage.removeItem("declaracionesContaUI");
+  localStorage.removeItem("ventasContaUI");
   location.reload();
 }
 
 cargarConfiguracionSistema();
+cargarVentasSistema();
 actualizarIconoTemaSistema();
 calcularFormulario104Sistema();
 
-/* ======================================================
-  NUEVO: SIDEBAR RESPONSIVE DEL SISTEMA
-====================================================== */
+
+//  MODULO DE VENTAS - Sonicse
+
+function cargarVentasSistema() {
+  ventasSistema = leerLocal("ventasContaUI", []);
+}
+
+function agregarVentaSistema() {
+  limpiarErrores();
+
+  let descripcion = obtenerValor("ventaDescripcion");
+  let base = obtenerNumero("ventaBase");
+  let tarifa = obtenerNumero("ventaTarifa");
+
+  if (base <= 0) {
+    validarCampo("ventaBase", "txtVentaBase", "Ingresa un valor base mayor a 0.");
+    return;
+  }
+
+  let iva = base * (tarifa / 100);
+
+  let venta = {
+    id: Date.now(),
+    descripcion: descripcion || "Venta sin descripción",
+    base: base,
+    tarifa: tarifa,
+    iva: iva,
+    total: base + iva,
+  };
+
+  ventasSistema.push(venta);
+  guardarLocal("ventasContaUI", ventasSistema);
+
+  obtenerElemento("ventaDescripcion").value = "";
+  obtenerElemento("ventaBase").value = "";
+  obtenerElemento("ventaTarifa").value = "15";
+
+  pintarVentasSistema();
+}
+
+function pintarVentasSistema() {
+  let contenedor = obtenerElemento("ventasBody");
+
+  if (contenedor === null) {
+    return;
+  }
+
+  contenedor.innerHTML = "";
+
+  if (ventasSistema.length === 0) {
+    contenedor.innerHTML =
+      '<div class="ventas-row ventas-empty"><span>Todavía no registras ventas.</span></div>';
+    calcularTotalesVentas();
+    return;
+  }
+
+  for (let i = 0; i < ventasSistema.length; i++) {
+    let venta = ventasSistema[i];
+
+    let fila = document.createElement("div");
+    fila.className = "ventas-row";
+
+    fila.innerHTML =
+      "<span>" + venta.descripcion + "</span>" +
+      "<span>" + venta.tarifa + "%</span>" +
+      "<span>" + dinero(venta.base) + "</span>" +
+      "<span>" + dinero(venta.iva) + "</span>" +
+      "<span>" + dinero(venta.total) + "</span>" +
+      '<span><button class="dashboard-btn danger" onclick="eliminarVentaSistema(' +
+      venta.id +
+      ')">Eliminar</button></span>';
+
+    contenedor.appendChild(fila);
+  }
+
+  calcularTotalesVentas();
+}
+
+function calcularTotalesVentas() {
+  let totalBase15 = 0;
+  let totalBase0 = 0;
+  let totalIva = 0;
+  let totalGeneral = 0;
+
+  for (let i = 0; i < ventasSistema.length; i++) {
+    let venta = ventasSistema[i];
+
+    if (venta.tarifa === 0) {
+      totalBase0 += venta.base;
+    } else {
+      totalBase15 += venta.base;
+    }
+
+    totalIva += venta.iva;
+    totalGeneral += venta.total;
+  }
+
+  mostrarTexto("totalVentas15", dinero(totalBase15));
+  mostrarTexto("totalVentas0", dinero(totalBase0));
+  mostrarTexto("totalVentasIva", dinero(totalIva));
+  mostrarTexto("totalVentasGeneral", dinero(totalGeneral));
+
+  return {
+    base15: totalBase15,
+    base0: totalBase0,
+    iva: totalIva,
+    total: totalGeneral,
+  };
+}
+
+function eliminarVentaSistema(id) {
+  let nuevas = [];
+
+  for (let i = 0; i < ventasSistema.length; i++) {
+    if (ventasSistema[i].id !== id) {
+      nuevas.push(ventasSistema[i]);
+    }
+  }
+
+  ventasSistema = nuevas;
+  guardarLocal("ventasContaUI", ventasSistema);
+  pintarVentasSistema();
+}
+
+function limpiarVentasSistema() {
+  if (ventasSistema.length === 0) {
+    return;
+  }
+
+  let confirmar = confirm("¿Seguro que deseas vaciar todas las ventas registradas?");
+
+  if (!confirmar) {
+    return;
+  }
+
+  ventasSistema = [];
+  guardarLocal("ventasContaUI", ventasSistema);
+  pintarVentasSistema();
+}
+
+function enviarVentasAlFormulario104() {
+  if (ventasSistema.length === 0) {
+    alert("Primero registra al menos una venta.");
+    return;
+  }
+
+  let totales = calcularTotalesVentas();
+
+  obtenerElemento("ventas15").value = totales.base15 > 0 ? totales.base15 : "";
+  obtenerElemento("ventas0").value = totales.base0 > 0 ? totales.base0 : "";
+
+  calcularFormulario104Sistema();
+  mostrarModuloSistema("formulario104");
+
+  if (obtenerValor("periodoObligacion") !== "" && obtenerValor("periodoMes") !== "") {
+    mostrarPaso104("formulario");
+  } else {
+    mostrarPaso104("periodo");
+  }
+}
+
+
+//  NUEVO: SIDEBAR RESPONSIVE DEL SISTEMA
+
 function alternarSidebarSistemaMobile() {
   let sidebar = document.querySelector(".sistema-sidebar-left");
   let backdrop = document.getElementById("systemSidebarBackdrop");

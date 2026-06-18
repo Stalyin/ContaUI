@@ -405,7 +405,6 @@ function mostrarArchivoDev(clave) {
     return;
   }
 
-  // Marcar el archivo activo en el árbol
   let botones = document.querySelectorAll(".dev-file");
 
   for (let i = 0; i < botones.length; i++) {
@@ -418,7 +417,6 @@ function mostrarArchivoDev(clave) {
     actual.classList.add("active");
   }
 
-  // Construir la tarjeta de explicación
   let lista = "";
 
   for (let i = 0; i < data.hace.length; i++) {
@@ -456,7 +454,6 @@ function mostrarArchivoDev(clave) {
   }
 }
 
-// Mostrar index.html seleccionado al cargar la página
 document.addEventListener("DOMContentLoaded", function () {
   mostrarArchivoDev("index");
 });
