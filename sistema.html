@@ -61,10 +61,25 @@
           Configuración
         </button>
 
-        <button id="botonVentas" onclick="mostrarModuloSistema('ventas')">
-          <i class='bx bx-cart'></i>
-          Ventas
-        </button>
+        <div class="sidebar-dropdown">
+          <button onclick="alternarSubmenuSistema('submenuVentas')">
+            <i class='bx bx-cart'></i>
+            Ventas
+            <i class='bx bx-chevron-down'></i>
+          </button>
+
+          <div id="submenuVentas" class="sidebar-submenu open">
+            <button id="botonRegistrarVenta" onclick="mostrarModuloSistema('ventas')">
+              <i class='bx bx-plus-circle'></i>
+              Registrar venta
+            </button>
+
+            <button id="botonConsultasVentas" onclick="mostrarModuloSistema('consultasVentas')">
+              <i class='bx bx-list-ul'></i>
+              Consultas
+            </button>
+          </div>
+        </div>
 
         <div class="sidebar-dropdown">
           <button onclick="alternarSubmenuSistema('submenuDeclaraciones')">
@@ -156,14 +171,14 @@
         </div>
       </section>
 
-      <!-- VENTAS -->
+      <!-- VENTAS / REGISTRAR -->
       <section id="vistaVentas" class="system-view">
         <div class="system-panel">
-          <span class="eyebrow">Operaciones / Ventas</span>
-          <h1>Módulo de ventas</h1>
+          <span class="eyebrow">Ventas / Registrar</span>
+          <h1>Registrar venta</h1>
           <p>
-            Registra las ventas del período. Al enviarlas, los totales llenan
-            automáticamente el Formulario 104 (campos 401 y 403).
+            Agrega una venta del período. Cada venta se guarda en
+            <strong>Consultas</strong>, y desde ahí podrás enviarlas al Formulario 104.
           </p>
 
           <div class="form-grid-system">
@@ -192,7 +207,26 @@
               <i class='bx bx-plus'></i>
               Agregar venta
             </button>
+
+            <button class="secondary-btn" onclick="mostrarModuloSistema('consultasVentas')">
+              <i class='bx bx-list-ul'></i>
+              Ver ventas registradas
+            </button>
           </div>
+
+          <p id="mensajeVentaAgregada" class="venta-agregada"></p>
+        </div>
+      </section>
+
+      <!-- VENTAS / CONSULTAS -->
+      <section id="vistaConsultasVentas" class="system-view">
+        <div class="system-panel">
+          <span class="eyebrow">Ventas / Consultas</span>
+          <h1>Ventas registradas</h1>
+          <p>
+            Aquí se almacenan todas las ventas que registras. Cuando estés listo,
+            envíalas al Formulario 104 (campos 401 y 403).
+          </p>
 
           <div class="ventas-table">
             <div class="ventas-row ventas-head">
