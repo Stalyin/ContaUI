@@ -55,7 +55,7 @@ function mostrarModuloSistema(modulo) {
     vistas[i].classList.remove("active");
   }
 
-  let botones = ["botonConfiguracion", "botonVentas", "botonFormulario", "botonConsultas"];
+  let botones = ["botonConfiguracion", "botonRegistrarVenta", "botonConsultasVentas", "botonFormulario", "botonConsultas"];
 
   for (let i = 0; i < botones.length; i++) {
     let boton = obtenerElemento(botones[i]);
@@ -78,7 +78,18 @@ function mostrarModuloSistema(modulo) {
     }
 
     obtenerElemento("vistaVentas").classList.add("active");
-    obtenerElemento("botonVentas").classList.add("active");
+    obtenerElemento("botonRegistrarVenta").classList.add("active");
+  }
+
+  if (modulo === "consultasVentas") {
+    if (!configuracionCompleta()) {
+      alert("Primero guarda la configuración del contribuyente.");
+      mostrarModuloSistema("configuracion");
+      return;
+    }
+
+    obtenerElemento("vistaConsultasVentas").classList.add("active");
+    obtenerElemento("botonConsultasVentas").classList.add("active");
     pintarVentasSistema();
   }
 
@@ -598,6 +609,16 @@ function agregarVentaSistema() {
   obtenerElemento("ventaTarifa").value = "15";
 
   pintarVentasSistema();
+
+  let mensaje = obtenerElemento("mensajeVentaAgregada");
+
+  if (mensaje !== null) {
+    let cantidad = ventasSistema.length;
+    let plural = cantidad === 1 ? "venta" : "ventas";
+
+    mensaje.innerText =
+      "✓ Venta agregada. Ya tienes " + cantidad + " " + plural + " en Consultas.";
+  }
 }
 
 function pintarVentasSistema() {
