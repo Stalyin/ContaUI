@@ -44,6 +44,10 @@
           </div>
         </div>
 
+        <button class="nav-link" data-section="precios" onclick="mostrarVista('precios')">
+          Precios
+        </button>
+
         <button class="nav-link nav-link--glow" data-section="quiz" onclick="mostrarVista('quiz')">
           Validar conocimiento
         </button>
@@ -1205,6 +1209,124 @@
           <!-- Generado por la lógica del explorador en app.js -->
         </div>
 
+      </div>
+    </section>
+
+    <!-- PRECIOS -->
+    <section id="precios" class="view simple-view">
+      <div class="section-heading">
+        <span class="eyebrow">Precios</span>
+        <h2>Planes que se ajustan a tu aprendizaje</h2>
+        <p>
+          Elige el plan ideal para dominar el IVA, las facturas y el Formulario 104.
+          Empieza gratis y sube de nivel cuando lo necesites.
+        </p>
+      </div>
+
+      <div class="precios-grid">
+
+        <!-- Plan Estudiante -->
+        <article class="precio-card">
+          <h3>Estudiante</h3>
+          <p class="precio-card__desc">Para quienes recién empiezan a entender la facturación y el IVA.</p>
+
+          <div class="precio-monto">
+            <span class="precio-moneda">$</span>0<span class="precio-periodo">/mes</span>
+          </div>
+
+          <button class="secondary-btn precio-btn" onclick="mostrarVista('aprender')">
+            Empezar gratis
+          </button>
+
+          <span class="precio-incluye">Incluye:</span>
+          <ul class="precio-features">
+            <li><i class='bx bx-check'></i> Acceso a todos los Recursos (IVA, tarifa 0%, subtotal y total)</li>
+            <li><i class='bx bx-check'></i> Calculadoras interactivas de práctica</li>
+            <li><i class='bx bx-check'></i> Cuestionario para validar tu conocimiento</li>
+            <li><i class='bx bx-check'></i> Tema claro y oscuro</li>
+          </ul>
+        </article>
+
+        <!-- Plan Profesional (destacado) -->
+        <article class="precio-card precio-card--destacada">
+          <span class="precio-badge">Más popular</span>
+          <h3>Profesional</h3>
+          <p class="precio-card__desc">Para practicar declaraciones reales con el simulador completo.</p>
+
+          <div class="precio-monto">
+            <span class="precio-moneda">$</span>12<span class="precio-periodo">/mes</span>
+          </div>
+
+          <button class="primary-btn precio-btn" onclick="window.location.href='sistema.html'">
+            Comenzar ahora
+          </button>
+
+          <span class="precio-incluye">Todo lo del plan Estudiante, más:</span>
+          <ul class="precio-features">
+            <li><i class='bx bx-check'></i> Simulador del Formulario 104</li>
+            <li><i class='bx bx-check'></i> Módulo de ventas conectado al 104</li>
+            <li><i class='bx bx-check'></i> Guía de facturación electrónica</li>
+            <li><i class='bx bx-check'></i> Cálculo automático del IVA a pagar</li>
+            <li><i class='bx bx-check'></i> Guarda y consulta tus declaraciones</li>
+          </ul>
+        </article>
+
+        <!-- Plan Institución -->
+        <article class="precio-card">
+          <h3>Institución</h3>
+          <p class="precio-card__desc">Para docentes y centros que enseñan tributación a sus estudiantes.</p>
+
+          <div class="precio-monto">
+            <span class="precio-moneda">$</span>29<span class="precio-periodo">/mes</span>
+          </div>
+
+          <button class="secondary-btn precio-btn" onclick="window.location.href='dashboard.html'">
+            Solicitar acceso
+          </button>
+
+          <span class="precio-incluye">Todo lo del plan Profesional, más:</span>
+          <ul class="precio-features">
+            <li><i class='bx bx-check'></i> Panel de resultados de estudiantes</li>
+            <li><i class='bx bx-check'></i> Estadísticas: promedio, aprobados y por reforzar</li>
+            <li><i class='bx bx-check'></i> Detalle de cada intento del cuestionario</li>
+            <li><i class='bx bx-check'></i> Documentación para desarrolladores</li>
+            <li><i class='bx bx-check'></i> Soporte por WhatsApp</li>
+          </ul>
+        </article>
+
+      </div>
+
+      <!-- Preguntas frecuentes -->
+      <div class="precios-faq">
+        <div class="section-heading">
+          <span class="eyebrow">FAQ</span>
+          <h2>Todo lo que necesitas saber</h2>
+        </div>
+
+        <details class="faq-item">
+          <summary>¿Necesito pagar para empezar? <i class='bx bx-plus'></i></summary>
+          <p>No. El plan Estudiante es gratis e incluye todos los Recursos, las calculadoras y el cuestionario. Subes de plan solo cuando lo necesites.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>¿Qué incluye el simulador del Formulario 104? <i class='bx bx-plus'></i></summary>
+          <p>Registras ventas y compras, el sistema calcula el IVA a pagar y arma el resumen de tu declaración. Además, el módulo de ventas llena automáticamente los campos del formulario.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>¿Los datos del simulador son reales? <i class='bx bx-plus'></i></summary>
+          <p>Es una herramienta educativa: todo se guarda en tu navegador para que practiques sin riesgo. No reemplaza la declaración oficial en el portal del SRI.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>¿El plan Institución sirve para un curso completo? <i class='bx bx-plus'></i></summary>
+          <p>Sí. Incluye un panel donde el docente revisa los resultados de cada estudiante, con estadísticas y el detalle de cada intento del cuestionario.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>¿Puedo cambiar de plan más adelante? <i class='bx bx-plus'></i></summary>
+          <p>Claro. Puedes empezar gratis y pasar a Profesional o Institución en cualquier momento, según vayas avanzando.</p>
+        </details>
       </div>
     </section>
 
