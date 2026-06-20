@@ -3830,3 +3830,255 @@ a {
     font-size: 25px;
   }
 }
+
+/* ============================================================
+   Explorador interactivo del proyecto (sección Developers)
+   ============================================================ */
+.dev-explorer {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 22px;
+  margin-top: 30px;
+  text-align: left;
+}
+
+/* --- Árbol de archivos --- */
+.dev-tree {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  height: fit-content;
+}
+
+.dev-tree__bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 16px;
+  background: var(--bg-card-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.dev-tree__bar p {
+  margin: 0 0 0 8px;
+  font-size: 13px;
+  color: var(--text-2);
+  font-family: monospace;
+}
+
+.dev-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dev-dot.red { background: #ff5f57; }
+.dev-dot.yellow { background: #febc2e; }
+.dev-dot.green { background: #28c840; }
+
+.dev-tree__body {
+  padding: 16px;
+  font-family: monospace;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.dev-node--root {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  color: var(--text-3);
+  font-weight: 700;
+}
+
+.dev-folder {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  margin-left: 14px;
+  color: var(--cyan);
+  font-weight: 600;
+}
+
+.dev-file {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 10px;
+  margin-left: 14px;
+  border-radius: 9px;
+  border: 1px solid transparent;
+  color: var(--text);
+  transition: 0.18s ease;
+}
+
+.dev-file--child { margin-left: 34px; }
+
+.dev-file:hover {
+  background: var(--bg-card-blue);
+  color: var(--text-3);
+}
+
+.dev-file.active {
+  background: var(--bg-card-blue);
+  border-color: var(--bg-border-blue);
+  color: var(--text-3);
+}
+
+.dev-file i { font-size: 17px; }
+.dev-file .bxl-html5 { color: #e44d26; }
+.dev-file .bxl-css3 { color: #2965f1; }
+.dev-file .bxl-javascript { color: #f0db4f; }
+.dev-file .bx-image,
+.dev-file .bx-movie-play { color: var(--cyan); }
+
+/* --- Panel explicativo --- */
+.dev-info {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+  min-height: 320px;
+}
+
+.dev-info__head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dev-info__icon {
+  width: 54px;
+  height: 54px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  font-size: 28px;
+  color: var(--text-3);
+  background: var(--bg-card-blue);
+  border: 1px solid var(--bg-border-blue);
+}
+
+.dev-info__head h3 {
+  margin: 0;
+  font-family: monospace;
+  font-size: 21px;
+  color: var(--text-3);
+  word-break: break-all;
+}
+
+.dev-tag {
+  display: inline-block;
+  margin-top: 7px;
+  padding: 3px 11px;
+  font-size: 12px;
+  border-radius: 20px;
+  color: var(--muted);
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+}
+
+.dev-info__desc {
+  margin: 20px 0;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.dev-info h4 {
+  margin: 22px 0 13px;
+  font-size: 15px;
+  color: var(--text-3);
+}
+
+.dev-info ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.dev-info ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.dev-info ul li i {
+  margin-top: 3px;
+  font-size: 17px;
+  color: var(--green);
+  flex-shrink: 0;
+}
+
+.dev-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dev-chips span {
+  font-family: monospace;
+  font-size: 13px;
+  padding: 5px 11px;
+  border-radius: 8px;
+  color: var(--cyan);
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+}
+
+@media (max-width: 820px) {
+  .dev-explorer { grid-template-columns: 1fr; }
+}
+
+/* MODULO DE VENTAS SONICSE */
+.ventas-table {
+  margin-top: 24px;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-card);
+}
+
+.ventas-row {
+  display: grid;
+  grid-template-columns: 1.6fr 70px 1fr 1fr 1fr 96px;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-3);
+  font-size: 13px;
+}
+
+.ventas-row:last-child {
+  border-bottom: 0;
+}
+
+.ventas-head {
+  background: var(--bg-card-2);
+  color: var(--text-2);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.4px;
+}
+
+.ventas-empty {
+  grid-template-columns: 1fr;
+  color: var(--text-2);
+}

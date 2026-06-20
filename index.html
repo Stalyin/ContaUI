@@ -1128,21 +1128,83 @@
         <span class="eyebrow">Developers</span>
         <h2 class="developer">Estructura limpia del proyecto</h2>
         <p>
-          El proyecto esta construido en HTML, CSS y JavaScript, con la estructura de la siguiente manera ayuda a que el código sea fácil de leer,
-          modificar y publicar.
+          Explora la arquitectura de Conta UI. Haz clic en cualquier archivo para
+          descubrir qué hace y cómo se conecta con el resto del proyecto.
         </p>
       </div>
 
-      <div class="code-card">
-        <pre><code>ContaUI/
-        ├── index.html
-        ├── sistema.html
-        ├── css/
-        │   └── styles.css
-        └── js/
-            ├── app.js
-            ├── quiz.js
-            └── data.js</code></pre>
+      <div class="dev-explorer">
+
+        <!-- Árbol de archivos -->
+        <div class="dev-tree">
+          <div class="dev-tree__bar">
+            <span class="dev-dot red"></span>
+            <span class="dev-dot yellow"></span>
+            <span class="dev-dot green"></span>
+            <p>ContaUI — estructura</p>
+          </div>
+
+          <div class="dev-tree__body">
+            <div class="dev-node dev-node--root">
+              <i class='bx bxs-folder-open'></i> ContaUI/
+            </div>
+
+            <button class="dev-file" data-file="index" onclick="mostrarArchivoDev('index')">
+              <i class='bx bxl-html5'></i> index.html
+            </button>
+            <button class="dev-file" data-file="sistemaHtml" onclick="mostrarArchivoDev('sistemaHtml')">
+              <i class='bx bxl-html5'></i> sistema.html
+            </button>
+
+            <div class="dev-folder"><i class='bx bx-folder'></i> css/</div>
+            <button class="dev-file dev-file--child" data-file="style" onclick="mostrarArchivoDev('style')">
+              <i class='bx bxl-css3'></i> style.css
+            </button>
+
+            <div class="dev-folder"><i class='bx bx-folder'></i> js/</div>
+            <button class="dev-file dev-file--child" data-file="app" onclick="mostrarArchivoDev('app')">
+              <i class='bx bxl-javascript'></i> app.js
+            </button>
+            <button class="dev-file dev-file--child" data-file="utilitarios" onclick="mostrarArchivoDev('utilitarios')">
+              <i class='bx bxl-javascript'></i> utilitarios.js
+            </button>
+            <button class="dev-file dev-file--child" data-file="calculator" onclick="mostrarArchivoDev('calculator')">
+              <i class='bx bxl-javascript'></i> dinamic-calculator.js
+            </button>
+            <button class="dev-file dev-file--child" data-file="data" onclick="mostrarArchivoDev('data')">
+              <i class='bx bxl-javascript'></i> data.js
+            </button>
+            <button class="dev-file dev-file--child" data-file="quiz" onclick="mostrarArchivoDev('quiz')">
+              <i class='bx bxl-javascript'></i> quiz.js
+            </button>
+            <button class="dev-file dev-file--child" data-file="dashboard" onclick="mostrarArchivoDev('dashboard')">
+              <i class='bx bxl-javascript'></i> dashboard.js
+            </button>
+            <button class="dev-file dev-file--child" data-file="sistema" onclick="mostrarArchivoDev('sistema')">
+              <i class='bx bxl-javascript'></i> sistema.js
+            </button>
+            <button class="dev-file dev-file--child" data-file="supabase" onclick="mostrarArchivoDev('supabase')">
+              <i class='bx bxl-javascript'></i> supabase-config.js
+            </button>
+            <button class="dev-file dev-file--child" data-file="widget" onclick="mostrarArchivoDev('widget')">
+              <i class='bx bxl-javascript'></i> widget.js
+            </button>
+
+            <div class="dev-folder"><i class='bx bx-folder'></i> assets/</div>
+            <button class="dev-file dev-file--child" data-file="images" onclick="mostrarArchivoDev('images')">
+              <i class='bx bx-image'></i> images/
+            </button>
+            <button class="dev-file dev-file--child" data-file="video" onclick="mostrarArchivoDev('video')">
+              <i class='bx bx-movie-play'></i> video/
+            </button>
+          </div>
+        </div>
+
+        <!-- Panel explicativo -->
+        <div class="dev-info" id="devInfo">
+          <!-- Generado por la lógica del explorador en app.js -->
+        </div>
+
       </div>
     </section>
 
