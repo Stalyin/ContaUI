@@ -4075,3 +4075,173 @@ a {
   font-weight: 600;
   min-height: 22px;
 }
+
+/* ============================================================
+   Sección de Precios
+   ============================================================ */
+.precios-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  align-items: start;
+  margin-top: 8px;
+}
+
+.precio-card {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 30px 26px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+}
+
+.precio-card--destacada {
+  position: relative;
+  border-color: var(--green);
+  background: var(--bg-card-2);
+  box-shadow: var(--shadow);
+}
+
+.precio-badge {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #04130d;
+  background: var(--green);
+  padding: 4px 12px;
+  border-radius: 50px;
+}
+
+.precio-card h3 {
+  margin: 0 0 6px;
+  font-size: 20px;
+  color: var(--text-3);
+}
+
+.precio-card__desc {
+  margin: 0 0 18px;
+  min-height: 42px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+.precio-monto {
+  display: flex;
+  align-items: flex-start;
+  gap: 2px;
+  margin-bottom: 22px;
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text-3);
+}
+
+.precio-moneda {
+  margin-top: 6px;
+  font-size: 24px;
+}
+
+.precio-periodo {
+  align-self: flex-end;
+  margin-bottom: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-2);
+}
+
+.precio-btn {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.precio-incluye {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-3);
+}
+
+.precio-features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.precio-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.precio-features li i {
+  margin-top: 1px;
+  font-size: 18px;
+  color: var(--green);
+  flex-shrink: 0;
+}
+
+/* Preguntas frecuentes */
+.precios-faq {
+  margin-top: 80px;
+}
+
+.faq-item {
+  margin-bottom: 12px;
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px;
+  font-weight: 600;
+  text-align: left;
+  color: var(--text-3);
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary i {
+  flex-shrink: 0;
+  font-size: 20px;
+  color: var(--green);
+  transition: transform 0.25s ease;
+}
+
+.faq-item[open] summary i {
+  transform: rotate(45deg);
+}
+
+.faq-item p {
+  margin: 0;
+  padding: 0 20px 20px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+@media (max-width: 880px) {
+  .precios-grid {
+    grid-template-columns: 1fr;
+  }
+}
