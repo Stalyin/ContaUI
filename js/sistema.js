@@ -15,9 +15,13 @@ let calculoActual = {
   ivaCompras: 0,
   creditoAnterior: 0,
   ivaPagar: 0,
+  saldoTributario: 0,
+  creditoProximo: 0,
 };
 
 let ventasSistema = [];
+let comprasSistema = [];
+let creditosTributariosSistema = leerLocal("creditosTributariosContaUI", {});
 
 function cambiarTemaSistema() {
   let actual = document.documentElement.getAttribute("data-theme") || "light";
@@ -55,7 +59,15 @@ function mostrarModuloSistema(modulo) {
     vistas[i].classList.remove("active");
   }
 
-  let botones = ["botonConfiguracion", "botonRegistrarVenta", "botonConsultasVentas", "botonFormulario", "botonConsultas"];
+  let botones = [
+    "botonConfiguracion",
+    "botonRegistrarVenta",
+    "botonConsultasVentas",
+    "botonRegistrarCompra",
+    "botonConsultasCompras",
+    "botonFormulario",
+    "botonConsultas",
+  ];
 
   for (let i = 0; i < botones.length; i++) {
     let boton = obtenerElemento(botones[i]);
@@ -93,6 +105,31 @@ function mostrarModuloSistema(modulo) {
     pintarVentasSistema();
   }
 
+  if (modulo === "compras") {
+    if (!configuracionCompleta()) {
+      alert("Primero guarda la configuración del contribuyente.");
+      mostrarModuloSistema("configuracion");
+      return;
+    }
+
+    obtenerElemento("vistaCompras").classList.add("active");
+    obtenerElemento("botonRegistrarCompra").classList.add("active");
+    prepararVistaCompras();
+  }
+
+  if (modulo === "consultasCompras") {
+    if (!configuracionCompleta()) {
+      alert("Primero guarda la configuración del contribuyente.");
+      mostrarModuloSistema("configuracion");
+      return;
+    }
+
+    obtenerElemento("vistaConsultasCompras").classList.add("active");
+    obtenerElemento("botonConsultasCompras").classList.add("active");
+    pintarOpcionesFiltroCompras();
+    pintarComprasSistema();
+  }
+
   if (modulo === "formulario104") {
     if (!configuracionCompleta()) {
       alert("Primero guarda la configuración del contribuyente.");
@@ -102,6 +139,9 @@ function mostrarModuloSistema(modulo) {
 
     obtenerElemento("vistaFormulario104").classList.add("active");
     obtenerElemento("botonFormulario").classList.add("active");
+    actualizarMesesDisponibles104();
+    autocompletarCreditoAnterior();
+    cargarMovimientosDelPeriodoSeleccionado();
     actualizarPagoSistema();
   }
 
@@ -261,6 +301,14 @@ function validarPreguntas() {
     return false;
   }
 
+  if (obtenerValor("preguntaCredito") === "") {
+    marcarError(
+      "preguntaCredito",
+      "Responde si tienes crédito tributario anterior.",
+    );
+    return false;
+  }
+
   return true;
 }
 
@@ -285,7 +333,7 @@ function mostrarPaso104(paso) {
     return;
   }
 
-  if (paso === "formulario" && !validarPeriodo()) {
+  if (paso === "formulario" && (!validarPeriodo() || !validarPreguntas())) {
     return;
   }
 
@@ -330,6 +378,8 @@ function mostrarPaso104(paso) {
 
 function continuarDesdePeriodo() {
   if (validarPeriodo()) {
+    cargarMovimientosDelPeriodoSeleccionado();
+    autocompletarPreguntasPeriodo();
     mostrarPaso104("preguntas");
   }
 }
@@ -358,11 +408,9 @@ function calcularFormulario104Sistema() {
 
   let ivaVentas = ventas15 * (porcentaje / 100);
   let ivaCompras = compras15 * (porcentaje / 100);
-  let ivaPagar = ivaVentas - ivaCompras - creditoAnterior;
-
-  if (ivaPagar < 0) {
-    ivaPagar = 0;
-  }
+  let diferencia = ivaVentas - ivaCompras - creditoAnterior;
+  let ivaPagar = diferencia > 0 ? diferencia : 0;
+  let saldoTributario = diferencia < 0 ? Math.abs(diferencia) : 0;
 
   calculoActual.ventas15 = ventas15;
   calculoActual.ventas0 = ventas0;
@@ -372,6 +420,8 @@ function calcularFormulario104Sistema() {
   calculoActual.ivaCompras = ivaCompras;
   calculoActual.creditoAnterior = creditoAnterior;
   calculoActual.ivaPagar = ivaPagar;
+  calculoActual.saldoTributario = saldoTributario;
+  calculoActual.creditoProximo = saldoTributario;
 
   let totalVentas = ventas15 + ventas0;
   let totalCompras = compras15 + compras0;
@@ -395,6 +445,12 @@ function calcularFormulario104Sistema() {
   mostrarTexto("resCreditoAnterior", dinero(creditoAnterior));
   mostrarTexto("resIvaPagar", dinero(ivaPagar));
 
+  let resumen = obtenerElemento("resIvaPagar");
+  if (resumen !== null && saldoTributario > 0) {
+    resumen.innerText =
+      dinero(ivaPagar) + " / saldo a favor " + dinero(saldoTributario);
+  }
+
   actualizarPagoSistema();
 }
 
@@ -406,12 +462,20 @@ function actualizarPagoSistema() {
   ).trim();
   let periodo = obtenerValor("periodoMes") + " " + obtenerValor("periodoAnio");
   let obligacion = obtenerNombreObligacion(obtenerValor("periodoObligacion"));
+  let textoTotal = dinero(calculoActual.ivaPagar);
+
+  if (calculoActual.saldoTributario > 0) {
+    textoTotal =
+      dinero(calculoActual.ivaPagar) +
+      " · Crédito próximo " +
+      dinero(calculoActual.saldoTributario);
+  }
 
   mostrarTexto("pagoContribuyente", nombre || "Sin configurar");
   mostrarTexto("pagoRuc", configuracionSistema.ruc || "-");
   mostrarTexto("pagoObligacion", obligacion);
   mostrarTexto("pagoPeriodo", periodo.trim());
-  mostrarTexto("pagoTotal", dinero(calculoActual.ivaPagar));
+  mostrarTexto("pagoTotal", textoTotal);
 }
 
 function ejecutarGuardarDeclaracionSistema() {
@@ -442,10 +506,13 @@ function ejecutarGuardarDeclaracionSistema() {
     ivaCompras: calculoActual.ivaCompras,
     creditoAnterior: calculoActual.creditoAnterior,
     ivaPagar: calculoActual.ivaPagar,
+    saldoTributario: calculoActual.saldoTributario,
+    creditoProximo: calculoActual.creditoProximo,
   };
 
   declaraciones.push(nuevaDeclaracion);
   guardarLocal("declaracionesContaUI", declaraciones);
+  guardarCreditoTributarioPeriodo(calculoActual.creditoProximo);
   reiniciarFormulario104DespuesDeGuardar();
   mostrarModuloSistema("consultas");
 }
@@ -563,14 +630,18 @@ function limpiarSistemaDemo() {
   localStorage.removeItem("configuracionContaUI");
   localStorage.removeItem("declaracionesContaUI");
   localStorage.removeItem("ventasContaUI");
+  localStorage.removeItem("comprasContaUI");
+  localStorage.removeItem("secuenciaComprasContaUI");
+  localStorage.removeItem("creditosTributariosContaUI");
   location.reload();
 }
 
 cargarConfiguracionSistema();
 cargarVentasSistema();
+cargarComprasSistema();
+prepararFechasSistema();
 actualizarIconoTemaSistema();
 calcularFormulario104Sistema();
-
 
 //  MODULO DE VENTAS - Sonicse
 
@@ -581,12 +652,17 @@ function cargarVentasSistema() {
 function agregarVentaSistema() {
   limpiarErrores();
 
+  let fecha = obtenerValor("ventaFecha") || obtenerFechaActualISO();
   let descripcion = obtenerValor("ventaDescripcion");
   let base = obtenerNumero("ventaBase");
   let tarifa = obtenerNumero("ventaTarifa");
 
   if (base <= 0) {
-    validarCampo("ventaBase", "txtVentaBase", "Ingresa un valor base mayor a 0.");
+    validarCampo(
+      "ventaBase",
+      "txtVentaBase",
+      "Ingresa un valor base mayor a 0.",
+    );
     return;
   }
 
@@ -594,6 +670,8 @@ function agregarVentaSistema() {
 
   let venta = {
     id: Date.now(),
+    fecha: fecha,
+    periodoClave: obtenerClavePeriodoPorFecha(fecha),
     descripcion: descripcion || "Venta sin descripción",
     base: base,
     tarifa: tarifa,
@@ -604,6 +682,7 @@ function agregarVentaSistema() {
   ventasSistema.push(venta);
   guardarLocal("ventasContaUI", ventasSistema);
 
+  obtenerElemento("ventaFecha").value = obtenerFechaActualISO();
   obtenerElemento("ventaDescripcion").value = "";
   obtenerElemento("ventaBase").value = "";
   obtenerElemento("ventaTarifa").value = "15";
@@ -617,7 +696,11 @@ function agregarVentaSistema() {
     let plural = cantidad === 1 ? "venta" : "ventas";
 
     mensaje.innerText =
-      "✓ Venta agregada. Ya tienes " + cantidad + " " + plural + " en Consultas.";
+      "✓ Venta agregada. Ya tienes " +
+      cantidad +
+      " " +
+      plural +
+      " en Consultas.";
   }
 }
 
@@ -644,11 +727,24 @@ function pintarVentasSistema() {
     fila.className = "ventas-row";
 
     fila.innerHTML =
-      "<span>" + venta.descripcion + "</span>" +
-      "<span>" + venta.tarifa + "%</span>" +
-      "<span>" + dinero(venta.base) + "</span>" +
-      "<span>" + dinero(venta.iva) + "</span>" +
-      "<span>" + dinero(venta.total) + "</span>" +
+      "<span>" +
+      formatearFechaCorta(venta.fecha) +
+      "</span>" +
+      "<span>" +
+      venta.descripcion +
+      "</span>" +
+      "<span>" +
+      venta.tarifa +
+      "%</span>" +
+      "<span>" +
+      dinero(venta.base) +
+      "</span>" +
+      "<span>" +
+      dinero(venta.iva) +
+      "</span>" +
+      "<span>" +
+      dinero(venta.total) +
+      "</span>" +
       '<span><button class="dashboard-btn danger" onclick="eliminarVentaSistema(' +
       venta.id +
       ')">Eliminar</button></span>';
@@ -710,7 +806,9 @@ function limpiarVentasSistema() {
     return;
   }
 
-  let confirmar = confirm("¿Seguro que deseas vaciar todas las ventas registradas?");
+  let confirmar = confirm(
+    "¿Seguro que deseas vaciar todas las ventas registradas?",
+  );
 
   if (!confirmar) {
     return;
@@ -735,13 +833,15 @@ function enviarVentasAlFormulario104() {
   calcularFormulario104Sistema();
   mostrarModuloSistema("formulario104");
 
-  if (obtenerValor("periodoObligacion") !== "" && obtenerValor("periodoMes") !== "") {
+  if (
+    obtenerValor("periodoObligacion") !== "" &&
+    obtenerValor("periodoMes") !== ""
+  ) {
     mostrarPaso104("formulario");
   } else {
     mostrarPaso104("periodo");
   }
 }
-
 
 //  NUEVO: SIDEBAR RESPONSIVE DEL SISTEMA
 
@@ -782,3 +882,559 @@ document.addEventListener("click", function (event) {
     }, 120);
   }
 });
+
+/* ============================================================
+   MODULO DE COMPRAS Y PERIODOS 104
+   ============================================================ */
+
+const mesesSistema = [
+  "Enero",
+  "Febrero",
+  "Marzo",
+  "Abril",
+  "Mayo",
+  "Junio",
+  "Julio",
+  "Agosto",
+  "Septiembre",
+  "Octubre",
+  "Noviembre",
+  "Diciembre",
+];
+
+function obtenerFechaActualISO() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function prepararFechasSistema() {
+  if (existeElemento("ventaFecha")) {
+    obtenerElemento("ventaFecha").value = obtenerFechaActualISO();
+  }
+  if (existeElemento("compraFecha")) {
+    obtenerElemento("compraFecha").value = obtenerFechaActualISO();
+  }
+  if (existeElemento("filtroComprasAnio")) {
+    obtenerElemento("filtroComprasAnio").value = new Date().getFullYear();
+  }
+  actualizarMesesDisponibles104();
+}
+
+function formatearFechaCorta(fecha) {
+  if (!fecha) {
+    return "-";
+  }
+  let partes = fecha.split("-");
+  if (partes.length !== 3) {
+    return fecha;
+  }
+  return partes[2] + "/" + partes[1] + "/" + partes[0];
+}
+
+function obtenerClavePeriodoPorFecha(fecha) {
+  if (!fecha) {
+    return "";
+  }
+  let partes = fecha.split("-");
+  if (partes.length !== 3) {
+    return "";
+  }
+  let anio = partes[0];
+  let mesIndex = parseInt(partes[1], 10) - 1;
+  return mesesSistema[mesIndex] + "-" + anio;
+}
+
+function obtenerClavePeriodoSeleccionado() {
+  let mes = obtenerValor("periodoMes");
+  let anio = obtenerValor("periodoAnio");
+  if (mes === "" || anio === "") {
+    return "";
+  }
+  return mes + "-" + anio;
+}
+
+function obtenerPeriodoAnterior(clavePeriodo) {
+  if (!clavePeriodo) {
+    return "";
+  }
+  let partes = clavePeriodo.split("-");
+  let mesIndex = mesesSistema.indexOf(partes[0]);
+  let anio = parseInt(partes[1], 10);
+  if (mesIndex <= 0) {
+    return "Diciembre-" + (anio - 1);
+  }
+  return mesesSistema[mesIndex - 1] + "-" + anio;
+}
+
+function prepararVistaCompras() {
+  if (existeElemento("compraFecha") && obtenerValor("compraFecha") === "") {
+    obtenerElemento("compraFecha").value = obtenerFechaActualISO();
+  }
+  actualizarPreviewCompra();
+}
+
+function cargarComprasSistema() {
+  comprasSistema = leerLocal("comprasContaUI", []);
+}
+
+function obtenerSecuenciaCompra() {
+  let secuencia = parseInt(
+    localStorage.getItem("secuenciaComprasContaUI") || "1",
+    10,
+  );
+  return secuencia;
+}
+
+function generarNumeroComprobanteCompra() {
+  let secuencia = obtenerSecuenciaCompra();
+  return "COMP-" + String(secuencia).padStart(6, "0");
+}
+
+function avanzarSecuenciaCompra() {
+  localStorage.setItem("secuenciaComprasContaUI", obtenerSecuenciaCompra() + 1);
+}
+
+function obtenerTarifaCompra() {
+  let seleccion = obtenerValor("compraTarifa");
+  if (seleccion === "personalizado") {
+    return obtenerNumero("compraTarifaPersonalizada");
+  }
+  return parseFloat(seleccion || "0");
+}
+
+function actualizarPreviewCompra() {
+  let preview = obtenerElemento("compraComprobantePreview");
+  if (preview !== null) {
+    preview.innerText = generarNumeroComprobanteCompra();
+  }
+
+  let grupoPersonalizado = obtenerElemento("grupoIvaPersonalizado");
+  if (grupoPersonalizado !== null) {
+    if (obtenerValor("compraTarifa") === "personalizado") {
+      grupoPersonalizado.classList.remove("hidden-field");
+    } else {
+      grupoPersonalizado.classList.add("hidden-field");
+    }
+  }
+
+  let base = obtenerNumero("compraBase");
+  let tarifa = obtenerTarifaCompra();
+  let iva = base * (tarifa / 100);
+
+  mostrarTexto("previewCompraBase", dinero(base));
+  mostrarTexto("previewCompraIva", dinero(iva));
+  mostrarTexto("previewCompraTotal", dinero(base + iva));
+}
+
+function agregarCompraSistema() {
+  limpiarErrores();
+
+  let fecha = obtenerValor("compraFecha");
+  let descripcion = obtenerValor("compraDescripcion");
+  let base = obtenerNumero("compraBase");
+  let tarifa = obtenerTarifaCompra();
+
+  if (fecha === "") {
+    validarCampo(
+      "compraFecha",
+      "txtCompraFecha",
+      "La fecha de compra es obligatoria.",
+    );
+    return;
+  }
+
+  if (descripcion === "") {
+    validarCampo(
+      "compraDescripcion",
+      "txtCompraDescripcion",
+      "La descripción es obligatoria.",
+    );
+    return;
+  }
+
+  if (base <= 0) {
+    validarCampo(
+      "compraBase",
+      "txtCompraBase",
+      "Ingresa un valor base mayor a 0.",
+    );
+    return;
+  }
+
+  if (tarifa < 0) {
+    alert("La tarifa de IVA no puede ser negativa.");
+    return;
+  }
+
+  let iva = base * (tarifa / 100);
+  let compra = {
+    id: Date.now(),
+    comprobante: generarNumeroComprobanteCompra(),
+    fecha: fecha,
+    periodoClave: obtenerClavePeriodoPorFecha(fecha),
+    descripcion: descripcion,
+    base: base,
+    tarifa: tarifa,
+    iva: iva,
+    total: base + iva,
+  };
+
+  comprasSistema.push(compra);
+  guardarLocal("comprasContaUI", comprasSistema);
+  avanzarSecuenciaCompra();
+
+  obtenerElemento("compraFecha").value = obtenerFechaActualISO();
+  obtenerElemento("compraDescripcion").value = "";
+  obtenerElemento("compraBase").value = "";
+  obtenerElemento("compraTarifa").value = "15";
+  obtenerElemento("compraTarifaPersonalizada").value = "15";
+
+  actualizarPreviewCompra();
+  pintarOpcionesFiltroCompras();
+  actualizarMesesDisponibles104();
+
+  let mensaje = obtenerElemento("mensajeCompraAgregada");
+  if (mensaje !== null) {
+    mensaje.innerText =
+      "✓ Compra " +
+      compra.comprobante +
+      " agregada para " +
+      compra.periodoClave.replace("-", " ") +
+      ".";
+  }
+}
+
+function pintarOpcionesFiltroCompras() {
+  let select = obtenerElemento("filtroComprasMes");
+  if (select === null) {
+    return;
+  }
+  let valorActual = select.value;
+  select.innerHTML = '<option value="">Todos los meses</option>';
+  for (let i = 0; i < mesesSistema.length; i++) {
+    select.innerHTML +=
+      '<option value="' +
+      mesesSistema[i] +
+      '">' +
+      mesesSistema[i] +
+      "</option>";
+  }
+  select.value = valorActual;
+}
+
+function pintarComprasSistema() {
+  let contenedor = obtenerElemento("comprasBody");
+  if (contenedor === null) {
+    return;
+  }
+
+  let mesFiltro = obtenerValor("filtroComprasMes");
+  let anioFiltro = obtenerValor("filtroComprasAnio");
+  contenedor.innerHTML = "";
+
+  let comprasFiltradas = comprasSistema.filter(function (compra) {
+    let clave =
+      compra.periodoClave || obtenerClavePeriodoPorFecha(compra.fecha);
+    let coincideMes = mesFiltro === "" || clave.startsWith(mesFiltro + "-");
+    let coincideAnio = anioFiltro === "" || clave.endsWith("-" + anioFiltro);
+    return coincideMes && coincideAnio;
+  });
+
+  if (comprasFiltradas.length === 0) {
+    contenedor.innerHTML =
+      '<div class="ventas-row ventas-empty"><span>No hay compras para este filtro.</span></div>';
+    calcularTotalesCompras(comprasFiltradas);
+    return;
+  }
+
+  for (let i = 0; i < comprasFiltradas.length; i++) {
+    let compra = comprasFiltradas[i];
+    let fila = document.createElement("div");
+    fila.className = "ventas-row compras-row";
+    fila.innerHTML =
+      "<span>" +
+      compra.comprobante +
+      "</span>" +
+      "<span>" +
+      formatearFechaCorta(compra.fecha) +
+      "</span>" +
+      "<span>" +
+      compra.descripcion +
+      "</span>" +
+      "<span>" +
+      compra.tarifa +
+      "%</span>" +
+      "<span>" +
+      dinero(compra.base) +
+      "</span>" +
+      "<span>" +
+      dinero(compra.iva) +
+      "</span>" +
+      "<span>" +
+      dinero(compra.total) +
+      "</span>" +
+      '<span><button class="dashboard-btn danger" onclick="eliminarCompraSistema(' +
+      compra.id +
+      ')">Eliminar</button></span>';
+    contenedor.appendChild(fila);
+  }
+
+  calcularTotalesCompras(comprasFiltradas);
+}
+
+function calcularTotalesCompras(lista) {
+  let compras = lista || comprasSistema;
+  let totalBase15 = 0;
+  let totalBase0 = 0;
+  let totalIva = 0;
+  let totalGeneral = 0;
+
+  for (let i = 0; i < compras.length; i++) {
+    let compra = compras[i];
+    if (compra.tarifa === 0) {
+      totalBase0 += compra.base;
+    } else {
+      totalBase15 += compra.base;
+    }
+    totalIva += compra.iva;
+    totalGeneral += compra.total;
+  }
+
+  mostrarTexto("totalCompras15", dinero(totalBase15));
+  mostrarTexto("totalCompras0", dinero(totalBase0));
+  mostrarTexto("totalComprasIva", dinero(totalIva));
+  mostrarTexto("totalComprasGeneral", dinero(totalGeneral));
+
+  return {
+    base15: totalBase15,
+    base0: totalBase0,
+    iva: totalIva,
+    total: totalGeneral,
+  };
+}
+
+function eliminarCompraSistema(id) {
+  comprasSistema = comprasSistema.filter(function (compra) {
+    return compra.id !== id;
+  });
+  guardarLocal("comprasContaUI", comprasSistema);
+  pintarComprasSistema();
+  actualizarMesesDisponibles104();
+}
+
+function limpiarComprasSistema() {
+  if (comprasSistema.length === 0) {
+    return;
+  }
+  let confirmar = confirm(
+    "¿Seguro que deseas vaciar todas las compras registradas?",
+  );
+  if (!confirmar) {
+    return;
+  }
+  comprasSistema = [];
+  guardarLocal("comprasContaUI", comprasSistema);
+  pintarComprasSistema();
+  actualizarMesesDisponibles104();
+}
+
+function obtenerMovimientosPeriodo(clavePeriodo) {
+  let ventas = ventasSistema.filter(function (venta) {
+    let clave = venta.periodoClave || obtenerClavePeriodoPorFecha(venta.fecha);
+    return clave === clavePeriodo;
+  });
+  let compras = comprasSistema.filter(function (compra) {
+    let clave =
+      compra.periodoClave || obtenerClavePeriodoPorFecha(compra.fecha);
+    return clave === clavePeriodo;
+  });
+  return { ventas: ventas, compras: compras };
+}
+
+function calcularTotalesVentasLista(lista) {
+  let totalBase15 = 0;
+  let totalBase0 = 0;
+  let totalIva = 0;
+  let totalGeneral = 0;
+  for (let i = 0; i < lista.length; i++) {
+    let venta = lista[i];
+    if (venta.tarifa === 0) {
+      totalBase0 += venta.base;
+    } else {
+      totalBase15 += venta.base;
+    }
+    totalIva += venta.iva;
+    totalGeneral += venta.total;
+  }
+  return {
+    base15: totalBase15,
+    base0: totalBase0,
+    iva: totalIva,
+    total: totalGeneral,
+  };
+}
+
+function cargarMovimientosDelPeriodoSeleccionado() {
+  let clave = obtenerClavePeriodoSeleccionado();
+  if (clave === "") {
+    return;
+  }
+
+  let movimientos = obtenerMovimientosPeriodo(clave);
+  let totalesVentas = calcularTotalesVentasLista(movimientos.ventas);
+  let totalesCompras = calcularTotalesCompras(movimientos.compras);
+
+  obtenerElemento("ventas15").value =
+    totalesVentas.base15 > 0 ? totalesVentas.base15.toFixed(2) : "";
+  obtenerElemento("ventas0").value =
+    totalesVentas.base0 > 0 ? totalesVentas.base0.toFixed(2) : "";
+  obtenerElemento("compras15").value =
+    totalesCompras.base15 > 0 ? totalesCompras.base15.toFixed(2) : "";
+  obtenerElemento("compras0").value =
+    totalesCompras.base0 > 0 ? totalesCompras.base0.toFixed(2) : "";
+
+  autocompletarCreditoAnterior();
+  autocompletarPreguntasPeriodo();
+  actualizarResumenPeriodo(movimientos, totalesVentas, totalesCompras);
+  calcularFormulario104Sistema();
+}
+
+function actualizarResumenPeriodo(movimientos, totalesVentas, totalesCompras) {
+  let resumen = obtenerElemento("periodoResumenMovimientos");
+  if (resumen === null) {
+    return;
+  }
+  resumen.innerText =
+    "Período detectado: " +
+    movimientos.ventas.length +
+    " venta(s), " +
+    movimientos.compras.length +
+    " compra(s). Ventas " +
+    dinero(totalesVentas.total) +
+    " · Compras " +
+    dinero(totalesCompras.total) +
+    ".";
+}
+
+function autocompletarPreguntasPeriodo() {
+  let clave = obtenerClavePeriodoSeleccionado();
+  let movimientos = obtenerMovimientosPeriodo(clave);
+  let tieneVentas =
+    movimientos.ventas.length > 0 ||
+    obtenerNumero("ventas15") > 0 ||
+    obtenerNumero("ventas0") > 0;
+  let tieneCompras =
+    movimientos.compras.length > 0 ||
+    obtenerNumero("compras15") > 0 ||
+    obtenerNumero("compras0") > 0;
+  let tieneCredito = obtenerNumero("creditoAnterior") > 0;
+
+  if (existeElemento("preguntaVentas")) {
+    obtenerElemento("preguntaVentas").value = tieneVentas ? "si" : "no";
+  }
+  if (existeElemento("preguntaCompras")) {
+    obtenerElemento("preguntaCompras").value = tieneCompras ? "si" : "no";
+  }
+  if (existeElemento("preguntaCredito")) {
+    obtenerElemento("preguntaCredito").value = tieneCredito ? "si" : "no";
+  }
+}
+
+function actualizarMesesDisponibles104() {
+  let select = obtenerElemento("periodoMes");
+  if (select === null) {
+    return;
+  }
+  let anio = obtenerValor("periodoAnio") || String(new Date().getFullYear());
+  let mesesConDatos = {};
+
+  for (let i = 0; i < ventasSistema.length; i++) {
+    let claveVenta =
+      ventasSistema[i].periodoClave ||
+      obtenerClavePeriodoPorFecha(ventasSistema[i].fecha);
+    mesesConDatos[claveVenta] = true;
+  }
+  for (let j = 0; j < comprasSistema.length; j++) {
+    let claveCompra =
+      comprasSistema[j].periodoClave ||
+      obtenerClavePeriodoPorFecha(comprasSistema[j].fecha);
+    mesesConDatos[claveCompra] = true;
+  }
+
+  let valorActual = select.value;
+  for (let k = 0; k < select.options.length; k++) {
+    let option = select.options[k];
+    if (option.value === "") {
+      option.disabled = false;
+      continue;
+    }
+    let clave = option.value + "-" + anio;
+    option.disabled = !mesesConDatos[clave];
+    option.textContent =
+      option.value + (mesesConDatos[clave] ? " · con datos" : " · sin datos");
+  }
+
+  if (valorActual !== "") {
+    select.value = valorActual;
+  }
+}
+
+function autocompletarCreditoAnterior() {
+  let clave = obtenerClavePeriodoSeleccionado();
+  if (clave === "") {
+    return;
+  }
+  let anterior = obtenerPeriodoAnterior(clave);
+  let credito = creditosTributariosSistema[anterior] || 0;
+  if (existeElemento("creditoAnterior")) {
+    obtenerElemento("creditoAnterior").value =
+      credito > 0 ? credito.toFixed(2) : "0";
+  }
+}
+
+function guardarCreditoTributarioPeriodo(valor) {
+  let clave = obtenerClavePeriodoSeleccionado();
+  if (clave === "") {
+    return;
+  }
+  creditosTributariosSistema[clave] = Number(valor || 0);
+  guardarLocal("creditosTributariosContaUI", creditosTributariosSistema);
+}
+
+function enviarComprasAlFormulario104() {
+  if (comprasSistema.length === 0) {
+    alert("Primero registra al menos una compra.");
+    return;
+  }
+
+  mostrarModuloSistema("formulario104");
+  let ultimaCompra = comprasSistema[comprasSistema.length - 1];
+  let clave =
+    ultimaCompra.periodoClave ||
+    obtenerClavePeriodoPorFecha(ultimaCompra.fecha);
+  let partes = clave.split("-");
+  if (partes.length === 2) {
+    obtenerElemento("periodoMes").value = partes[0];
+    obtenerElemento("periodoAnio").value = partes[1];
+  }
+  cargarMovimientosDelPeriodoSeleccionado();
+  mostrarPaso104("periodo");
+}
+
+function enviarVentasAlFormulario104() {
+  if (ventasSistema.length === 0) {
+    alert("Primero registra al menos una venta.");
+    return;
+  }
+
+  mostrarModuloSistema("formulario104");
+  let ultimaVenta = ventasSistema[ventasSistema.length - 1];
+  let clave =
+    ultimaVenta.periodoClave || obtenerClavePeriodoPorFecha(ultimaVenta.fecha);
+  let partes = clave.split("-");
+  if (partes.length === 2) {
+    obtenerElemento("periodoMes").value = partes[0];
+    obtenerElemento("periodoAnio").value = partes[1];
+  }
+  cargarMovimientosDelPeriodoSeleccionado();
+  mostrarPaso104("periodo");
+}
