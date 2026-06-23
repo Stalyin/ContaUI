@@ -68,7 +68,7 @@
             <i class='bx bx-chevron-down'></i>
           </button>
 
-          <div id="submenuVentas" class="sidebar-submenu open">
+          <div id="submenuVentas" class="sidebar-submenu">
             <button id="botonRegistrarVenta" onclick="mostrarModuloSistema('ventas')">
               <i class='bx bx-plus-circle'></i>
               Registrar venta
@@ -88,7 +88,7 @@
             <i class='bx bx-chevron-down'></i>
           </button>
 
-          <div id="submenuCompras" class="sidebar-submenu open">
+          <div id="submenuCompras" class="sidebar-submenu">
             <button id="botonRegistrarCompra" onclick="mostrarModuloSistema('compras')">
               <i class='bx bx-plus-circle'></i>
               Agregar compra
@@ -108,7 +108,7 @@
             <i class='bx bx-chevron-down'></i>
           </button>
 
-          <div id="submenuDeclaraciones" class="sidebar-submenu open">
+          <div id="submenuDeclaraciones" class="sidebar-submenu">
             <button id="botonFormulario" onclick="mostrarModuloSistema('formulario104')">
               <i class='bx bx-file'></i>
               Formulario 104
@@ -122,11 +122,12 @@
         </div>
       </nav>
 
-      <div class="sidebar-help">
-        <i class='bx bx-info-circle'></i>
-        <p>
-          Demo educativo. No envía información real al SRI.
-        </p>
+      <div class="sidebar-help plan-card-sidebar">
+        <i class='bx bx-badge-check'></i>
+        <div>
+          <strong>Plan básico</strong>
+          <p>Ventas, compras, Formulario 104 y comprobante educativo.</p>
+        </div>
       </div>
     </aside>
 
@@ -203,6 +204,12 @@
 
           <div class="form-grid-system">
             <label>
+              Fecha de venta *
+              <input class="contaui-input" type="date" id="ventaFecha">
+              <small id="txtVentaFecha"></small>
+            </label>
+
+            <label>
               Descripción
               <input class="contaui-input" type="text" id="ventaDescripcion" placeholder="Ejemplo: Venta de productos">
             </label>
@@ -248,8 +255,29 @@
             envíalas al Formulario 104 (campos 401 y 403).
           </p>
 
-          <div class="ventas-table">
-            <div class="ventas-row ventas-head">
+          <div class="form-grid-system mini-grid">
+            <label>
+              Filtrar por mes
+              <select class="contaui-select" id="filtroVentasMes" onchange="pintarVentasSistema()">
+                <option value="">Todos los meses</option>
+              </select>
+            </label>
+            <label>
+              Filtrar por año
+              <input class="contaui-input" type="number" id="filtroVentasAnio" value="2026" min="2020" max="2035" oninput="pintarVentasSistema()">
+            </label>
+          </div>
+
+          <div class="ventas-kpi-grid">
+            <article><span>Base 15%</span><strong id="kpiVentas15">$0.00</strong></article>
+            <article><span>Base 0%</span><strong id="kpiVentas0">$0.00</strong></article>
+            <article><span>IVA generado</span><strong id="kpiVentasIva">$0.00</strong></article>
+            <article><span>Total ventas</span><strong id="kpiVentasTotal">$0.00</strong></article>
+          </div>
+
+          <div class="ventas-table ventas-table-fecha">
+            <div class="ventas-row ventas-head ventas-head-fecha">
+              <span>Fecha</span>
               <span>Descripción</span>
               <span>Tarifa</span>
               <span>Base</span>
@@ -624,6 +652,7 @@
               <div><span>RUC</span><strong id="pagoRuc">-</strong></div>
               <div><span>Obligación</span><strong id="pagoObligacion">-</strong></div>
               <div><span>Período</span><strong id="pagoPeriodo">-</strong></div>
+              <div><span>Fecha máxima de pago</span><strong id="pagoFechaMaxima">-</strong></div>
               <div class="total-final"><span>Total a pagar</span><strong id="pagoTotal">$0.00</strong></div>
             </div>
 
@@ -641,7 +670,7 @@
           <span class="eyebrow">Consultas</span>
           <h1>Declaraciones guardadas</h1>
           <p>
-            Busca valores a Pagar Aqui
+            Revisa las declaraciones guardadas y genera el comprobante educativo en formato de impresión.
           </p>
 
           <div id="listaConsultasSistema" class="consultas-list"></div>
@@ -652,6 +681,7 @@
   </div>
 
   <script src="js/utilitarios.js"></script>
+  <script src="js/comprobantes.js"></script>
   <script src="js/sistema.js"></script>
 
   <!-- Modal-->

@@ -4151,3 +4151,83 @@ a {
   font-weight: 600;
   min-height: 22px;
 }
+
+/* ======================================================
+  MEJORAS VENTAS + COMPROBANTE EDUCATIVO
+====================================================== */
+.plan-card-sidebar {
+  align-items: flex-start !important;
+  gap: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(9, 80, 255, 0.18),
+    rgba(62, 207, 142, 0.12)
+  );
+}
+
+.plan-card-sidebar strong {
+  display: block;
+  color: var(--text-3);
+  margin-bottom: 4px;
+}
+
+.ventas-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 20px 0;
+}
+
+.ventas-kpi-grid article {
+  padding: 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.ventas-kpi-grid span {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.ventas-kpi-grid strong {
+  color: var(--text-3);
+  font-size: 22px;
+}
+
+.ventas-table-fecha .ventas-head-fecha,
+.ventas-row-fecha {
+  grid-template-columns: 0.9fr 1.5fr 0.7fr 0.8fr 0.8fr 0.8fr 0.8fr;
+}
+
+.consulta-card-pro {
+  display: grid;
+  grid-template-columns: 1.1fr 1.2fr 0.9fr;
+  gap: 20px;
+  align-items: center;
+}
+
+.consulta-actions-box {
+  display: grid;
+  gap: 12px;
+  justify-items: end;
+}
+
+.consulta-actions-box .secondary-btn {
+  min-height: 40px;
+  padding: 0 14px;
+}
+
+@media (max-width: 900px) {
+  .ventas-kpi-grid,
+  .consulta-card-pro {
+    grid-template-columns: 1fr;
+  }
+
+  .ventas-table-fecha .ventas-head-fecha,
+  .ventas-row-fecha {
+    grid-template-columns: 1fr;
+  }
+}

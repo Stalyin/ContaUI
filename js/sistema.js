@@ -475,6 +475,7 @@ function actualizarPagoSistema() {
   mostrarTexto("pagoRuc", configuracionSistema.ruc || "-");
   mostrarTexto("pagoObligacion", obligacion);
   mostrarTexto("pagoPeriodo", periodo.trim());
+  mostrarTexto("pagoFechaMaxima", obtenerFechaMaximaPagoDeclaracion());
   mostrarTexto("pagoTotal", textoTotal);
 }
 
@@ -488,7 +489,11 @@ function ejecutarGuardarDeclaracionSistema() {
   let declaraciones = leerLocal("declaracionesContaUI", []);
 
   let nuevaDeclaracion = {
+    id: Date.now(),
+    numeroSerie: generarNumeroSerieDeclaracion(),
     fecha: new Date().toLocaleString(),
+    fechaISO: new Date().toISOString(),
+    fechaMaximaPago: obtenerFechaMaximaPagoDeclaracion(),
     contribuyente: (
       configuracionSistema.nombre +
       " " +
@@ -530,29 +535,32 @@ function pintarConsultasSistema() {
 
   for (let i = declaraciones.length - 1; i >= 0; i--) {
     let item = declaraciones[i];
-
     let card = document.createElement("article");
-
     card.innerHTML = `
-        <div class="consulta-card"> 
-            <div>
-            <strong>${item.periodo}</strong> 
-            <span>${item.obligacion}</span>
-            <small>${item.fecha}</small>
-            </div>
-
-            <div>
-            <span>Contribuyente: ${item.contribuyente}</span>
-            <span>RUC: ${item.ruc}</span>
-            <span>IVA ventas: ${dinero(item.ivaVentas)}</span>
-            <span>IVA compras: ${dinero(item.ivaCompras)}</span>
-            </div>
-            <div>
-            <strong class="consulta-total">A Pagar: ${dinero(item.ivaPagar)}</strong>
-            </div>
+      <div class="consulta-card consulta-card-pro"> 
+        <div>
+          <strong>${item.periodo}</strong> 
+          <span>${item.obligacion}</span>
+          <small>Guardado: ${item.fecha}</small>
+          <small>Serie: ${item.numeroSerie || "Pendiente"}</small>
         </div>
-        `;
 
+        <div>
+          <span>Contribuyente: ${item.contribuyente}</span>
+          <span>RUC: ${item.ruc}</span>
+          <span>IVA ventas: ${dinero(item.ivaVentas)}</span>
+          <span>IVA compras: ${dinero(item.ivaCompras)}</span>
+        </div>
+
+        <div class="consulta-actions-box">
+          <strong class="consulta-total">A pagar: ${dinero(item.ivaPagar)}</strong>
+          <button class="secondary-btn" onclick="abrirComprobanteDeclaracion(${i})">
+            <i class='bx bx-printer'></i>
+            Comprobante
+          </button>
+        </div>
+      </div>
+    `;
     contenedor.appendChild(card);
   }
 }
@@ -582,11 +590,24 @@ function reiniciarFormulario104DespuesDeGuardar() {
     ivaCompras: 0,
     creditoAnterior: 0,
     ivaPagar: 0,
+    saldoTributario: 0,
+    creditoProximo: 0,
   };
 
   calcularFormulario104Sistema();
 
   mostrarPaso104("periodo");
+}
+
+function generarNumeroSerieDeclaracion() {
+  let secuencia = leerLocal("secuenciaDeclaracionesContaUI", 872176019280);
+  secuencia = Number(secuencia) + 1;
+  guardarLocal("secuenciaDeclaracionesContaUI", secuencia);
+  return String(secuencia);
+}
+
+function obtenerFechaMaximaPagoDeclaracion() {
+  return new Date().toLocaleDateString("es-EC");
 }
 
 function abrirModalConfiguracionGuardada() {
@@ -633,6 +654,7 @@ function limpiarSistemaDemo() {
   localStorage.removeItem("comprasContaUI");
   localStorage.removeItem("secuenciaComprasContaUI");
   localStorage.removeItem("creditosTributariosContaUI");
+  localStorage.removeItem("secuenciaDeclaracionesContaUI");
   location.reload();
 }
 
@@ -654,6 +676,15 @@ function agregarVentaSistema() {
 
   let fecha = obtenerValor("ventaFecha") || obtenerFechaActualISO();
   let descripcion = obtenerValor("ventaDescripcion");
+
+  if (fecha === "") {
+    validarCampo(
+      "ventaFecha",
+      "txtVentaFecha",
+      "Selecciona la fecha de la venta.",
+    );
+    return;
+  }
   let base = obtenerNumero("ventaBase");
   let tarifa = obtenerNumero("ventaTarifa");
 
@@ -704,6 +735,24 @@ function agregarVentaSistema() {
   }
 }
 
+function pintarOpcionesFiltroVentas() {
+  let select = obtenerElemento("filtroVentasMes");
+  if (select === null) {
+    return;
+  }
+  let valorActual = select.value;
+  select.innerHTML = '<option value="">Todos los meses</option>';
+  for (let i = 0; i < mesesSistema.length; i++) {
+    select.innerHTML +=
+      '<option value="' +
+      mesesSistema[i] +
+      '">' +
+      mesesSistema[i] +
+      "</option>";
+  }
+  select.value = valorActual;
+}
+
 function pintarVentasSistema() {
   let contenedor = obtenerElemento("ventasBody");
 
@@ -711,20 +760,31 @@ function pintarVentasSistema() {
     return;
   }
 
+  pintarOpcionesFiltroVentas();
+
+  let mesFiltro = obtenerValor("filtroVentasMes");
+  let anioFiltro = obtenerValor("filtroVentasAnio");
   contenedor.innerHTML = "";
 
-  if (ventasSistema.length === 0) {
+  let ventasFiltradas = ventasSistema.filter(function (venta) {
+    let clave = venta.periodoClave || obtenerClavePeriodoPorFecha(venta.fecha);
+    let coincideMes = mesFiltro === "" || clave.startsWith(mesFiltro + "-");
+    let coincideAnio = anioFiltro === "" || clave.endsWith("-" + anioFiltro);
+    return coincideMes && coincideAnio;
+  });
+
+  if (ventasFiltradas.length === 0) {
     contenedor.innerHTML =
-      '<div class="ventas-row ventas-empty"><span>Todavía no registras ventas.</span></div>';
-    calcularTotalesVentas();
+      '<div class="ventas-row ventas-empty"><span>No hay ventas para este filtro.</span></div>';
+    calcularTotalesVentas(ventasFiltradas);
     return;
   }
 
-  for (let i = 0; i < ventasSistema.length; i++) {
-    let venta = ventasSistema[i];
+  for (let i = 0; i < ventasFiltradas.length; i++) {
+    let venta = ventasFiltradas[i];
 
     let fila = document.createElement("div");
-    fila.className = "ventas-row";
+    fila.className = "ventas-row ventas-row-fecha";
 
     fila.innerHTML =
       "<span>" +
@@ -752,17 +812,18 @@ function pintarVentasSistema() {
     contenedor.appendChild(fila);
   }
 
-  calcularTotalesVentas();
+  calcularTotalesVentas(ventasFiltradas);
 }
 
-function calcularTotalesVentas() {
+function calcularTotalesVentas(lista) {
+  let ventas = lista || ventasSistema;
   let totalBase15 = 0;
   let totalBase0 = 0;
   let totalIva = 0;
   let totalGeneral = 0;
 
-  for (let i = 0; i < ventasSistema.length; i++) {
-    let venta = ventasSistema[i];
+  for (let i = 0; i < ventas.length; i++) {
+    let venta = ventas[i];
 
     if (venta.tarifa === 0) {
       totalBase0 += venta.base;
@@ -778,6 +839,10 @@ function calcularTotalesVentas() {
   mostrarTexto("totalVentas0", dinero(totalBase0));
   mostrarTexto("totalVentasIva", dinero(totalIva));
   mostrarTexto("totalVentasGeneral", dinero(totalGeneral));
+  mostrarTexto("kpiVentas15", dinero(totalBase15));
+  mostrarTexto("kpiVentas0", dinero(totalBase0));
+  mostrarTexto("kpiVentasIva", dinero(totalIva));
+  mostrarTexto("kpiVentasTotal", dinero(totalGeneral));
 
   return {
     base15: totalBase15,
