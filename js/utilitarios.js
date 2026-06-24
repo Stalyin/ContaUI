@@ -159,3 +159,59 @@ function confirmarModalReusable(idModal) {
 
   cerrarModalReusable(idModal);
 }
+
+/* ======================================================
+  UTILIDADES REUSABLES PARA MOVIMIENTOS
+====================================================== */
+
+function obtenerSecuenciaLocal(clave, valorInicial) {
+  let secuencia = parseInt(
+    localStorage.getItem(clave) || valorInicial || "1",
+    10,
+  );
+  return isNaN(secuencia) ? Number(valorInicial || 1) : secuencia;
+}
+
+function generarCodigoSecuencial(prefijo, claveSecuencia, digitos) {
+  let secuencia = obtenerSecuenciaLocal(claveSecuencia, 1);
+  return prefijo + "-" + String(secuencia).padStart(digitos || 6, "0");
+}
+
+function avanzarSecuenciaLocal(claveSecuencia) {
+  localStorage.setItem(
+    claveSecuencia,
+    obtenerSecuenciaLocal(claveSecuencia, 1) + 1,
+  );
+}
+
+function calcularMovimiento(base, tarifa) {
+  let baseNumero = Number(base || 0);
+  let tarifaNumero = Number(tarifa || 0);
+  let iva = baseNumero * (tarifaNumero / 100);
+
+  return {
+    iva: iva,
+    total: baseNumero + iva,
+  };
+}
+
+function limpiarCampos(ids) {
+  for (let i = 0; i < ids.length; i++) {
+    let elemento = obtenerElemento(ids[i].id);
+    if (elemento !== null) {
+      elemento.value = ids[i].valor;
+    }
+  }
+}
+
+function filtrarPorPeriodo(lista, idMes, idAnio) {
+  let mesFiltro = obtenerValor(idMes);
+  let anioFiltro = obtenerValor(idAnio);
+
+  return lista.filter(function (item) {
+    let clave = item.periodoClave || obtenerClavePeriodoPorFecha(item.fecha);
+    let coincideMes = mesFiltro === "" || clave.startsWith(mesFiltro + "-");
+    let coincideAnio = anioFiltro === "" || clave.endsWith("-" + anioFiltro);
+    return coincideMes && coincideAnio;
+  });
+}
