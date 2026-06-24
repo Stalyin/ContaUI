@@ -4757,7 +4757,9 @@ a {
 
   .movimientos-table .ventas-row,
   .movimientos-head,
-  .sri-row {
+  .sri-row,
+  .quiz-welcome-card,
+  .quiz-result-card {
     min-width: 100%;
     margin-bottom: 15px;
   }
