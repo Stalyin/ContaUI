@@ -13,12 +13,12 @@ const bancoPreguntas = {
     {
       texto: "¿Sobre qué valor se calcula el IVA en una factura?",
       opciones: [
-        "Sobre el subtotal gravado",
+        "Sobre el subtotal",
         "Sobre el total incluyendo propina",
         "Sobre el nombre del cliente",
         "Sobre el número de factura",
       ],
-      correcta: "Sobre el subtotal gravado",
+      correcta: "Sobre el subtotal",
     },
     {
       texto:

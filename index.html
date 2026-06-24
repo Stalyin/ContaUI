@@ -44,6 +44,10 @@
           </div>
         </div>
 
+        <button class="nav-link" data-section="precios" onclick="mostrarVista('precios')">
+          Precios
+        </button>
+
         <button class="nav-link nav-link--glow" data-section="quiz" onclick="mostrarVista('quiz')">
           Validar conocimiento
         </button>
@@ -485,14 +489,37 @@
               El subtotal es el valor de los productos o servicios antes de agregar impuestos,
               descuentos o recargos.
             </p>
-            
+
+            <p>
+              Es el punto de partida de toda factura: representa cuánto valen los bienes o
+              servicios <strong>por sí mismos</strong>, sin que todavía intervenga el IVA. A
+              partir de él se calcula el impuesto y, finalmente, el total que paga el cliente.
+            </p>
+
+            <p>
+              Existen dos formas comunes de obtenerlo. Si conoces el precio de cada producto,
+              el subtotal es simplemente la <strong>suma de todos ellos</strong>. Si en cambio
+              ya tienes el total facturado (con IVA incluido), puedes <strong>separar el IVA</strong>
+              dividiendo el total para <code>1.15</code> cuando la tarifa es del 15%.
+            </p>
+
             <div class="formula-box">
               <span>Fórmula</span>
               <div class="code-box">
                 <code><span>Subtotal = </span> </code>
-                <code>Suma de productos / porcentaje impuesto (1.15)</code>
+                <code>Total de Factura / porcentaje impuesto (1.15)</code>
               </div>
             </div>
+
+            <h3>Características principales</h3>
+
+            <ul class="nice-list">
+              <li>Es el valor base antes de aplicar IVA, descuentos o recargos.</li>
+              <li>Sobre él se calcula el IVA de los productos gravados.</li>
+              <li>Si sumas los precios de los productos, obtienes el subtotal directo.</li>
+              <li>Si partes del total con IVA, divides para 1.15 para recuperar el subtotal.</li>
+              <li>Siempre aparece en la factura como una línea separada del IVA y del total.</li>
+            </ul>
 
             <div class="result-table">
               <div><span>Camisa</span><strong>+ $25</strong></div>
@@ -533,14 +560,40 @@
               </div>
 
             </div>
+
+            <div class="resource-box">
+              <div>
+                <h3>Material complementario</h3>
+              </div>
+
+              <div class="resource-actions">
+                <a href="https://www.sri.gob.ec/facturacion-electronica" class="resource-btn" target="_blank">
+                  <i class='bx bx-file'></i>
+                  Ver comprobantes del SRI
+                </a>
+              </div>
+            </div>
           </div>
 
           <div id="topic-total" class="topic">
-            <span class="breadcrumb">Unidad 3 / Tema 5</span>
+            <span class="breadcrumb">Unidad 3 / Tema 4</span>
             <h2>Total factura</h2>
             <p class="lead">
               Es el valor final que debe pagar el cliente después de sumar impuestos y restar
               descuentos.
+            </p>
+
+            <p>
+              El total reúne todo lo anterior en un solo número: parte del <strong>subtotal</strong>,
+              le suma el <strong>IVA</strong> de los productos gravados y le resta los
+              <strong>descuentos</strong> que se hayan aplicado. Es la cifra que aparece al final
+              de la factura y la que realmente sale del bolsillo del cliente.
+            </p>
+
+            <p>
+              Por eso es importante registrarlo bien: el negocio cobra el total, pero recuerda
+              que el IVA incluido en ese valor <strong>no le pertenece</strong>, sino que deberá
+              declararlo después al SRI.
             </p>
 
             <div class="formula-box">
@@ -550,6 +603,16 @@
                 <code>Subtotal + IVA - Descuentos</code>
               </div>
             </div>
+
+            <h3>Características principales</h3>
+
+            <ul class="nice-list">
+              <li>Es el último valor de la factura, después de impuestos y descuentos.</li>
+              <li>Se obtiene sumando el IVA al subtotal y restando los descuentos.</li>
+              <li>Es el monto exacto que paga el consumidor final.</li>
+              <li>Incluye el IVA que el negocio deberá declarar más adelante.</li>
+              <li>Nunca puede ser negativo: si el descuento supera al valor, el total es $0.</li>
+            </ul>
 
              <div class="interactive-example">
                 <div>
@@ -594,7 +657,7 @@
           </div>
 
           <div id="topic-electronica" class="topic">
-            <span class="breadcrumb">Unidad 3 / Tema 6</span>
+            <span class="breadcrumb">Unidad 3 / Tema 5</span>
             <h2>Facturación electrónica</h2>
             <p class="lead">
                 La facturación es el proceso mediante el cual una empresa o persona emite un documento digital (Factura) para registrar la venta de bienes o la prestación de servicios. La factura sirve como comprobante legal y tributario de una transacción comercial.
@@ -652,24 +715,64 @@
           </div>
 
           <div id="topic-declaraciones" class="topic">
-            <span class="breadcrumb">Unidad 3 / Tema 7</span>
+            <span class="breadcrumb">Unidad 3 / Tema 6</span>
             <h2>Declaraciones mensuales al SRI</h2>
             <p class="lead">
-              Son reportes tributarios donde se informan impuestos cobrados y pagados durante
+              Son reportes tributarios donde se informan los impuestos cobrados y pagados durante
               un período.
             </p>
 
-            <ul class="nice-list">
-              <li>Registrar ventas</li>
-              <li>Registrar compras</li>
-              <li>Calcular IVA generado</li>
-              <li>Calcular IVA pagado</li>
-              <li>Presentar formularios</li>
-            </ul>
+            <p>
+              Cada cierto tiempo, el negocio debe rendir cuentas al SRI sobre el IVA que
+              <strong>cobró en sus ventas</strong> y el que <strong>pagó en sus compras</strong>.
+              La diferencia entre ambos determina si queda un valor por pagar o un saldo a favor.
+            </p>
+
+            <p>
+              La frecuencia depende del régimen: puede ser <strong>mensual o semestral</strong>.
+              Aunque el período no tenga movimiento, la declaración igual debe presentarse a
+              tiempo para evitar multas.
+            </p>
+
+            <h3>Pasos del proceso</h3>
+
+            <div class="steps">
+              <div><span>1</span> Registrar las ventas del período.</div>
+              <div><span>2</span> Registrar las compras del período.</div>
+              <div><span>3</span> Calcular el IVA generado (en ventas).</div>
+              <div><span>4</span> Calcular el IVA pagado (en compras).</div>
+              <div><span>5</span> Presentar el formulario y pagar el valor resultante.</div>
+            </div>
+
+            <div class="callout">
+              <i class='bx bx-info-circle'></i>
+              <p>
+                Una declaración en cero también debe presentarse. No hacerlo a tiempo genera
+                multas automáticas, incluso si no hubo ventas ni compras.
+              </p>
+            </div>
+
+            <div class="resource-box">
+              <div>
+                <h3>Material complementario</h3>
+              </div>
+
+              <div class="resource-actions">
+                <a href="https://www.sri.gob.ec/web/intersri/home" class="resource-btn" target="_blank">
+                  <i class='bx bx-link-external'></i>
+                  Portal del SRI
+                </a>
+
+                <a href="sistema.html" class="resource-btn" target="_blank">
+                  <i class='bx bx-calculator'></i>
+                  Practicar en el Sistema
+                </a>
+              </div>
+            </div>
           </div>
 
           <div id="topic-formulario104" class="topic">
-            <span class="breadcrumb">Unidad 3 / Tema 8</span>
+            <span class="breadcrumb">Unidad 3 / Tema 7</span>
             <h2>Formulario 104</h2>
             <p class="lead">
               El formulario 104 es la declaración del Impuesto al Valor Agregado (IVA) que el SRI pone a disposición de los contribuyentes para liquidar el IVA generado en un período (mes o semestre, según tu régimen).
@@ -742,16 +845,104 @@
           </div>
 
           <div id="topic-impuestos" class="topic">
-            <span class="breadcrumb">Unidad 3 / Tema 9</span>
+            <span class="breadcrumb">Unidad 3 / Tema 8</span>
             <h2>Cálculo básico de impuestos</h2>
             <p class="lead">
               Consiste en determinar cuánto debe pagar una empresa según sus actividades
               económicas, su base imponible y la tasa del impuesto.
             </p>
 
+            <p>
+              Casi todos los impuestos siguen la misma lógica: se toma una <strong>base
+              imponible</strong> (el valor sobre el que se cobra) y se la multiplica por una
+              <strong>tasa</strong> (un porcentaje). El IVA es un caso particular de esta misma
+              fórmula, donde la base es el subtotal y la tasa es el 15%.
+            </p>
+
+            <p>
+              Entender esta relación te permite calcular no solo el IVA, sino cualquier impuesto
+              porcentual: basta con identificar correctamente la base y la tasa que corresponde.
+            </p>
+
             <div class="formula-box">
               <span>Fórmula</span>
-              <code>Impuesto = Base imponible × Tasa</code>
+              <div class="code-box">
+                <code><span>Impuesto =</span> </code>
+                <code>Base imponible × Tasa</code>
+              </div>
+            </div>
+
+            <h3>Características principales</h3>
+
+            <ul class="nice-list">
+              <li>La base imponible es el valor sobre el que se aplica el impuesto.</li>
+              <li>La tasa es un porcentaje definido por la ley (por ejemplo, 15% de IVA).</li>
+              <li>El impuesto siempre se obtiene multiplicando base por tasa.</li>
+              <li>El IVA es solo un tipo de impuesto que sigue esta misma fórmula.</li>
+              <li>Identificar bien la base evita cobrar de más o de menos.</li>
+            </ul>
+
+            <h3>Tabla base imponible</h3>
+
+            <div class="result-table">
+              <div><span>Base imponible</span><strong>$200.00</strong></div>
+              <div><span>Tasa</span><strong>× 15%</strong></div>
+              <div><span>Impuesto</span><strong>= $30.00</strong></div>
+            </div>
+
+            <div class="interactive-example">
+              <div>
+                <span class="eyebrow">Ejemplo práctico</span>
+                <h3>Calculadora de impuesto</h3>
+                <p>Ingresa una base imponible y una tasa para calcular el impuesto y el total automáticamente.</p>
+              </div>
+
+              <div class="result-table">
+                <div>
+                  <span>Base imponible</span>
+                  <input type="number" id="impuestoBase" placeholder="Ejemplo: 200" min="0" step="0.01">
+                </div>
+                <div>
+                  <span>Tasa (%)</span>
+                  <input type="number" id="impuestoTasa" placeholder="Ejemplo: 15" min="0" step="0.01" value="15">
+                </div>
+                <div>
+                  <span>Impuesto calculado</span>
+                  <strong id="impuestoResultado">$0.00</strong>
+                </div>
+                <div>
+                  <span>Total (base + impuesto)</span>
+                  <strong id="impuestoTotalResultado">$0.00</strong>
+                </div>
+              </div>
+
+              <div class="btn-calculator">
+                <button class="primary-btn" onclick="calcularImpuestoBasicoAprendizaje()">Calcular impuesto</button>
+              </div>
+            </div>
+
+            <div class="learning-highlight">
+              <i class='bx bx-bulb'></i>
+              <div>
+                <h3>Idea clave</h3>
+                <p>
+                  Si dominas esta fórmula, ya entiendes el corazón del IVA y de la mayoría
+                  de impuestos porcentuales. Solo cambia la base y la tasa.
+                </p>
+              </div>
+            </div>
+
+            <div class="resource-box">
+              <div>
+                <h3>Material complementario</h3>
+              </div>
+
+              <div class="resource-actions">
+                <a href="https://www.sri.gob.ec/web/intersri/home" class="resource-btn" target="_blank">
+                  <i class='bx bx-link-external'></i>
+                  Portal del SRI
+                </a>
+              </div>
             </div>
           </div>
         </article>
@@ -941,21 +1132,201 @@
         <span class="eyebrow">Developers</span>
         <h2 class="developer">Estructura limpia del proyecto</h2>
         <p>
-          El proyecto esta construido en HTML, CSS y JavaScript, con la estructura de la siguiente manera ayuda a que el código sea fácil de leer,
-          modificar y publicar.
+          Explora la arquitectura de Conta UI. Haz clic en cualquier archivo para
+          descubrir qué hace y cómo se conecta con el resto del proyecto.
         </p>
       </div>
 
-      <div class="code-card">
-        <pre><code>ContaUI/
-        ├── index.html
-        ├── sistema.html
-        ├── css/
-        │   └── styles.css
-        └── js/
-            ├── app.js
-            ├── quiz.js
-            └── data.js</code></pre>
+      <div class="dev-explorer">
+
+        <!-- Árbol de archivos -->
+        <div class="dev-tree">
+          <div class="dev-tree__bar">
+            <span class="dev-dot red"></span>
+            <span class="dev-dot yellow"></span>
+            <span class="dev-dot green"></span>
+            <p>ContaUI — estructura</p>
+          </div>
+
+          <div class="dev-tree__body">
+            <div class="dev-node dev-node--root">
+              <i class='bx bxs-folder-open'></i> ContaUI/
+            </div>
+
+            <button class="dev-file" data-file="index" onclick="mostrarArchivoDev('index')">
+              <i class='bx bxl-html5'></i> index.html
+            </button>
+            <button class="dev-file" data-file="sistemaHtml" onclick="mostrarArchivoDev('sistemaHtml')">
+              <i class='bx bxl-html5'></i> sistema.html
+            </button>
+
+            <div class="dev-folder"><i class='bx bx-folder'></i> css/</div>
+            <button class="dev-file dev-file--child" data-file="style" onclick="mostrarArchivoDev('style')">
+              <i class='bx bxl-css3'></i> style.css
+            </button>
+
+            <div class="dev-folder"><i class='bx bx-folder'></i> js/</div>
+            <button class="dev-file dev-file--child" data-file="app" onclick="mostrarArchivoDev('app')">
+              <i class='bx bxl-javascript'></i> app.js
+            </button>
+            <button class="dev-file dev-file--child" data-file="utilitarios" onclick="mostrarArchivoDev('utilitarios')">
+              <i class='bx bxl-javascript'></i> utilitarios.js
+            </button>
+            <button class="dev-file dev-file--child" data-file="calculator" onclick="mostrarArchivoDev('calculator')">
+              <i class='bx bxl-javascript'></i> dinamic-calculator.js
+            </button>
+            <button class="dev-file dev-file--child" data-file="data" onclick="mostrarArchivoDev('data')">
+              <i class='bx bxl-javascript'></i> data.js
+            </button>
+            <button class="dev-file dev-file--child" data-file="quiz" onclick="mostrarArchivoDev('quiz')">
+              <i class='bx bxl-javascript'></i> quiz.js
+            </button>
+            <button class="dev-file dev-file--child" data-file="dashboard" onclick="mostrarArchivoDev('dashboard')">
+              <i class='bx bxl-javascript'></i> dashboard.js
+            </button>
+            <button class="dev-file dev-file--child" data-file="sistema" onclick="mostrarArchivoDev('sistema')">
+              <i class='bx bxl-javascript'></i> sistema.js
+            </button>
+            <button class="dev-file dev-file--child" data-file="supabase" onclick="mostrarArchivoDev('supabase')">
+              <i class='bx bxl-javascript'></i> supabase-config.js
+            </button>
+            <button class="dev-file dev-file--child" data-file="widget" onclick="mostrarArchivoDev('widget')">
+              <i class='bx bxl-javascript'></i> widget.js
+            </button>
+
+            <div class="dev-folder"><i class='bx bx-folder'></i> assets/</div>
+            <button class="dev-file dev-file--child" data-file="images" onclick="mostrarArchivoDev('images')">
+              <i class='bx bx-image'></i> images/
+            </button>
+            <button class="dev-file dev-file--child" data-file="video" onclick="mostrarArchivoDev('video')">
+              <i class='bx bx-movie-play'></i> video/
+            </button>
+          </div>
+        </div>
+
+        <!-- Panel explicativo -->
+        <div class="dev-info" id="devInfo">
+          <!-- Generado por la lógica del explorador en app.js -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PRECIOS -->
+    <section id="precios" class="view simple-view">
+      <div class="section-heading">
+        <span class="eyebrow">Precios</span>
+        <h2>Planes que se ajustan a tu aprendizaje</h2>
+        <p>
+          Elige el plan ideal para dominar el IVA, las facturas y el Formulario 104.
+          Empieza gratis y sube de nivel cuando lo necesites.
+        </p>
+      </div>
+
+      <div class="precios-grid">
+
+        <!-- Plan Estudiante -->
+        <article class="precio-card">
+          <h3>Estudiante</h3>
+          <p class="precio-card__desc">Para quienes recién empiezan a entender la facturación y el IVA.</p>
+
+          <div class="precio-monto">
+            <span class="precio-moneda">$</span>0<span class="precio-periodo">/mes</span>
+          </div>
+
+          <button class="secondary-btn precio-btn" onclick="mostrarVista('aprender')">
+            Empezar gratis
+          </button>
+
+          <span class="precio-incluye">Incluye:</span>
+          <ul class="precio-features">
+            <li><i class='bx bx-check'></i> Acceso a todos los Recursos (IVA, tarifa 0%, subtotal y total)</li>
+            <li><i class='bx bx-check'></i> Calculadoras interactivas de práctica</li>
+            <li><i class='bx bx-check'></i> Cuestionario para validar tu conocimiento</li>
+            <li><i class='bx bx-check'></i> Tema claro y oscuro</li>
+          </ul>
+        </article>
+
+        <!-- Plan Profesional (destacado) -->
+        <article class="precio-card precio-card--destacada">
+          <span class="precio-badge">Más popular</span>
+          <h3>Profesional</h3>
+          <p class="precio-card__desc">Para practicar declaraciones reales con el simulador completo.</p>
+
+          <div class="precio-monto">
+            <span class="precio-moneda">$</span>12<span class="precio-periodo">/mes</span>
+          </div>
+
+          <button class="primary-btn precio-btn" onclick="window.location.href='sistema.html'">
+            Comenzar ahora
+          </button>
+
+          <span class="precio-incluye">Todo lo del plan Estudiante, más:</span>
+          <ul class="precio-features">
+            <li><i class='bx bx-check'></i> Simulador del Formulario 104</li>
+            <li><i class='bx bx-check'></i> Módulo de ventas conectado al 104</li>
+            <li><i class='bx bx-check'></i> Guía de facturación electrónica</li>
+            <li><i class='bx bx-check'></i> Cálculo automático del IVA a pagar</li>
+            <li><i class='bx bx-check'></i> Guarda y consulta tus declaraciones</li>
+          </ul>
+        </article>
+
+        <!-- Plan Institución -->
+        <article class="precio-card">
+          <h3>Institución</h3>
+          <p class="precio-card__desc">Para docentes y centros que enseñan tributación a sus estudiantes.</p>
+
+          <div class="precio-monto">
+            <span class="precio-moneda">$</span>29<span class="precio-periodo">/mes</span>
+          </div>
+
+          <button class="secondary-btn precio-btn" onclick="window.location.href='dashboard.html'">
+            Solicitar acceso
+          </button>
+
+          <span class="precio-incluye">Todo lo del plan Profesional, más:</span>
+          <ul class="precio-features">
+            <li><i class='bx bx-check'></i> Panel de resultados de estudiantes</li>
+            <li><i class='bx bx-check'></i> Estadísticas: promedio, aprobados y por reforzar</li>
+            <li><i class='bx bx-check'></i> Detalle de cada intento del cuestionario</li>
+            <li><i class='bx bx-check'></i> Documentación para desarrolladores</li>
+            <li><i class='bx bx-check'></i> Soporte por WhatsApp</li>
+          </ul>
+        </article>
+
+      </div>
+
+      <!-- Preguntas frecuentes -->
+      <div class="precios-faq">
+        <div class="section-heading">
+          <span class="eyebrow">FAQ</span>
+          <h2>Todo lo que necesitas saber</h2>
+        </div>
+
+        <details class="faq-item">
+          <summary>¿Necesito pagar para empezar? <i class='bx bx-plus'></i></summary>
+          <p>No. El plan Estudiante es gratis e incluye todos los Recursos, las calculadoras y el cuestionario. Subes de plan solo cuando lo necesites.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>¿Qué incluye el simulador del Formulario 104? <i class='bx bx-plus'></i></summary>
+          <p>Registras ventas y compras, el sistema calcula el IVA a pagar y arma el resumen de tu declaración. Además, el módulo de ventas llena automáticamente los campos del formulario.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>¿Los datos del simulador son reales? <i class='bx bx-plus'></i></summary>
+          <p>Es una herramienta educativa: todo se guarda en tu navegador para que practiques sin riesgo. No reemplaza la declaración oficial en el portal del SRI.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>¿El plan Institución sirve para un curso completo? <i class='bx bx-plus'></i></summary>
+          <p>Sí. Incluye un panel donde el docente revisa los resultados de cada estudiante, con estadísticas y el detalle de cada intento del cuestionario.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>¿Puedo cambiar de plan más adelante? <i class='bx bx-plus'></i></summary>
+          <p>Claro. Puedes empezar gratis y pasar a Profesional o Institución en cualquier momento, según vayas avanzando.</p>
+        </details>
       </div>
     </section>
 
@@ -1013,7 +1384,7 @@
                 <li>Quito - Ecuador</li>
                 <li><a href="#">+593 999 999 9999</a></li>
                 <li><a href="#">Cristian Peña</a></li>
-                <li><a href="#">Scarlet Cordova</a></li>
+                <li><a href="#">Jose Araujo</a></li>
             </ul>
         </div>
         <div class="footer-options">

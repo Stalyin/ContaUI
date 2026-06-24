@@ -19,7 +19,7 @@ var options = {
     brandName: "Conta UI",
     brandSubTitle: "Normalmente responde en unos minutos",
     ctaText: "Comenzar chat",
-    phoneNumber: "593963313195,593983782562",
+    phoneNumber: "593963313195,593939384594",
     welcomeText: "Hola! 👋, Necesitas un asesor, escribenos.",
   },
 };
