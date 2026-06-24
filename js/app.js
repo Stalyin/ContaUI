@@ -230,7 +230,6 @@ function iniciarTemaSistema() {
 
 iniciarTemaSistema();
 
-
 /* ============================================================
    Explorador interactivo del proyecto (seccion Developers)
    Movido aqui desde developers.js para centralizar la logica.
@@ -421,20 +420,32 @@ function mostrarArchivoDev(clave) {
 
   for (let i = 0; i < data.hace.length; i++) {
     lista +=
-      "<li><i class='bx bx-check-circle'></i><span>" + data.hace[i] + "</span></li>";
+      "<li><i class='bx bx-check-circle'></i><span>" +
+      data.hace[i] +
+      "</span></li>";
   }
 
   let html =
     '<div class="dev-info__head">' +
-    '<div class="dev-info__icon"><i class="bx ' + data.icono + '"></i></div>' +
+    '<div class="dev-info__icon"><i class="bx ' +
+    data.icono +
+    '"></i></div>' +
     "<div>" +
-    "<h3>" + data.nombre + "</h3>" +
-    '<span class="dev-tag">' + data.tipo + "</span>" +
+    "<h3>" +
+    data.nombre +
+    "</h3>" +
+    '<span class="dev-tag">' +
+    data.tipo +
+    "</span>" +
     "</div>" +
     "</div>" +
-    '<p class="dev-info__desc">' + data.desc + "</p>" +
+    '<p class="dev-info__desc">' +
+    data.desc +
+    "</p>" +
     "<h4>¿Qué hace?</h4>" +
-    "<ul>" + lista + "</ul>";
+    "<ul>" +
+    lista +
+    "</ul>";
 
   if (data.funciones) {
     let chips = "";

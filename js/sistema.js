@@ -997,15 +997,21 @@ function cerrarSidebarSistemaMobile() {
 }
 
 document.addEventListener("click", function (event) {
-  let botonSidebarSistema = event.target.closest(
-    ".sistema-sidebar-left button",
-  );
+  let boton = event.target.closest(".sistema-sidebar-left button");
 
-  if (botonSidebarSistema !== null) {
-    setTimeout(function () {
-      cerrarSidebarSistemaMobile();
-    }, 120);
+  if (boton === null) {
+    return;
   }
+
+  let esDropdown = boton.parentElement.classList.contains("sidebar-dropdown");
+
+  if (esDropdown) {
+    return;
+  }
+
+  setTimeout(function () {
+    cerrarSidebarSistemaMobile();
+  }, 120);
 });
 
 /* ============================================================
