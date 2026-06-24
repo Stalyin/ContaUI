@@ -152,7 +152,7 @@ function contarGithub() {
   localStorage.setItem("githubClicks", clicks);
   obtenerElemento("contadorGithub").innerText = clicks;
 
-  let url = "https://github.com/ScarlettCordova/contaUI";
+  let url = "https://github.com/Stalyin/ContaUI.git";
   window.open(url, "_blank");
 }
 
