@@ -32,7 +32,7 @@
         </button>
 
         <button class="nav-link" data-section="aprender" onclick="mostrarVista('aprender')">
-            Recursos 
+            Recursos
         </button>
 
         <div class="nav-dropdown">
@@ -49,7 +49,7 @@
         </button>
 
         <button class="nav-link nav-link--glow" data-section="quiz" onclick="mostrarVista('quiz')">
-          Validar conocimiento
+          Iniciar Evaluación
         </button>
       </nav>
 
@@ -1130,7 +1130,7 @@
     <section id="developers" class="view simple-view">
       <div class="section-heading">
         <span class="eyebrow">Developers</span>
-        <h2 class="developer">Estructura limpia del proyecto</h2>
+        <h2 class="developer">Estructura del proyecto</h2>
         <p>
           Explora la arquitectura de Conta UI. Haz clic en cualquier archivo para
           descubrir qué hace y cómo se conecta con el resto del proyecto.
@@ -1228,11 +1228,12 @@
         <!-- Plan Estudiante -->
         <article class="precio-card">
           <h3>Estudiante</h3>
-          <p class="precio-card__desc">Para quienes recién empiezan a entender la facturación y el IVA.</p>
 
           <div class="precio-monto">
             <span class="precio-moneda">$</span>0<span class="precio-periodo">/mes</span>
           </div>
+
+          <p class="precio-card__desc">Para quienes recién empiezan a entender la facturación y el IVA.</p>
 
           <button class="secondary-btn precio-btn" onclick="mostrarVista('aprender')">
             Empezar gratis
@@ -1240,7 +1241,7 @@
 
           <span class="precio-incluye">Incluye:</span>
           <ul class="precio-features">
-            <li><i class='bx bx-check'></i> Acceso a todos los Recursos (IVA, tarifa 0%, subtotal y total)</li>
+            <li><i class='bx bx-check'></i> Acceso a todos los Recursos</li>
             <li><i class='bx bx-check'></i> Calculadoras interactivas de práctica</li>
             <li><i class='bx bx-check'></i> Cuestionario para validar tu conocimiento</li>
             <li><i class='bx bx-check'></i> Tema claro y oscuro</li>
@@ -1251,18 +1252,19 @@
         <article class="precio-card precio-card--destacada">
           <span class="precio-badge">Más popular</span>
           <h3>Profesional</h3>
-          <p class="precio-card__desc">Para practicar declaraciones reales con el simulador completo.</p>
-
+          
           <div class="precio-monto">
             <span class="precio-moneda">$</span>12<span class="precio-periodo">/mes</span>
           </div>
+
+          <p class="precio-card__desc">Para practicar declaraciones reales con el simulador completo.</p>
 
           <button class="primary-btn precio-btn" onclick="window.location.href='sistema.html'">
             Comenzar ahora
           </button>
 
-          <span class="precio-incluye">Todo lo del plan Estudiante, más:</span>
           <ul class="precio-features">
+            <li><i class='bx bx-check'></i> Todo lo del plan Estudiante, más:</li>
             <li><i class='bx bx-check'></i> Simulador del Formulario 104</li>
             <li><i class='bx bx-check'></i> Módulo de ventas conectado al 104</li>
             <li><i class='bx bx-check'></i> Guía de facturación electrónica</li>
@@ -1274,20 +1276,20 @@
         <!-- Plan Institución -->
         <article class="precio-card">
           <h3>Institución</h3>
-          <p class="precio-card__desc">Para docentes y centros que enseñan tributación a sus estudiantes.</p>
 
           <div class="precio-monto">
             <span class="precio-moneda">$</span>29<span class="precio-periodo">/mes</span>
           </div>
 
+          <p class="precio-card__desc">Para docentes y centros que enseñan tributación a sus estudiantes.</p>
+
           <button class="secondary-btn precio-btn" onclick="window.location.href='dashboard.html'">
-            Solicitar acceso
+            Contactar con un asesor
           </button>
 
-          <span class="precio-incluye">Todo lo del plan Profesional, más:</span>
           <ul class="precio-features">
+            <li><i class='bx bx-check'></i> Todo lo del plan Profesional, más:</li>
             <li><i class='bx bx-check'></i> Panel de resultados de estudiantes</li>
-            <li><i class='bx bx-check'></i> Estadísticas: promedio, aprobados y por reforzar</li>
             <li><i class='bx bx-check'></i> Detalle de cada intento del cuestionario</li>
             <li><i class='bx bx-check'></i> Documentación para desarrolladores</li>
             <li><i class='bx bx-check'></i> Soporte por WhatsApp</li>
