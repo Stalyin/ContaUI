@@ -68,7 +68,7 @@
             <i class='bx bx-chevron-down'></i>
           </button>
 
-          <div id="submenuVentas" class="sidebar-submenu open">
+          <div id="submenuVentas" class="sidebar-submenu">
             <button id="botonRegistrarVenta" onclick="mostrarModuloSistema('ventas')">
               <i class='bx bx-plus-circle'></i>
               Registrar venta
@@ -82,13 +82,33 @@
         </div>
 
         <div class="sidebar-dropdown">
+          <button onclick="alternarSubmenuSistema('submenuCompras')">
+            <i class='bx bx-shopping-bag'></i>
+            Compras
+            <i class='bx bx-chevron-down'></i>
+          </button>
+
+          <div id="submenuCompras" class="sidebar-submenu">
+            <button id="botonRegistrarCompra" onclick="mostrarModuloSistema('compras')">
+              <i class='bx bx-plus-circle'></i>
+              Agregar compra
+            </button>
+
+            <button id="botonConsultasCompras" onclick="mostrarModuloSistema('consultasCompras')">
+              <i class='bx bx-list-ul'></i>
+              Consultar compras
+            </button>
+          </div>
+        </div>
+
+        <div class="sidebar-dropdown">
           <button onclick="alternarSubmenuSistema('submenuDeclaraciones')">
             <i class='bx bx-folder-open'></i>
             Declaraciones
             <i class='bx bx-chevron-down'></i>
           </button>
 
-          <div id="submenuDeclaraciones" class="sidebar-submenu open">
+          <div id="submenuDeclaraciones" class="sidebar-submenu">
             <button id="botonFormulario" onclick="mostrarModuloSistema('formulario104')">
               <i class='bx bx-file'></i>
               Formulario 104
@@ -102,11 +122,12 @@
         </div>
       </nav>
 
-      <div class="sidebar-help">
-        <i class='bx bx-info-circle'></i>
-        <p>
-          Demo educativo. No envía información real al SRI.
-        </p>
+      <div class="sidebar-help plan-card-sidebar">
+        <i class='bx bx-badge-check'></i>
+        <div>
+          <strong>Plan básico</strong>
+          <p>Ventas, compras, Formulario 104 y comprobante educativo.</p>
+        </div>
       </div>
     </aside>
 
@@ -183,6 +204,12 @@
 
           <div class="form-grid-system">
             <label>
+              Fecha de venta *
+              <input class="contaui-input" type="date" id="ventaFecha">
+              <small id="txtVentaFecha"></small>
+            </label>
+
+            <label>
               Descripción
               <input class="contaui-input" type="text" id="ventaDescripcion" placeholder="Ejemplo: Venta de productos">
             </label>
@@ -228,8 +255,29 @@
             envíalas al Formulario 104 (campos 401 y 403).
           </p>
 
-          <div class="ventas-table">
-            <div class="ventas-row ventas-head">
+          <div class="form-grid-system mini-grid">
+            <label>
+              Filtrar por mes
+              <select class="contaui-select" id="filtroVentasMes" onchange="pintarVentasSistema()">
+                <option value="">Todos los meses</option>
+              </select>
+            </label>
+            <label>
+              Filtrar por año
+              <input class="contaui-input" type="number" id="filtroVentasAnio" value="2026" min="2020" max="2035" oninput="pintarVentasSistema()">
+            </label>
+          </div>
+
+          <div class="ventas-kpi-grid">
+            <article><span>Base 15%</span><strong id="kpiVentas15">$0.00</strong></article>
+            <article><span>Base 0%</span><strong id="kpiVentas0">$0.00</strong></article>
+            <article><span>IVA generado</span><strong id="kpiVentasIva">$0.00</strong></article>
+            <article><span>Total ventas</span><strong id="kpiVentasTotal">$0.00</strong></article>
+          </div>
+
+          <div class="ventas-table ventas-table-fecha">
+            <div class="ventas-row ventas-head ventas-head-fecha">
+              <span>Fecha</span>
               <span>Descripción</span>
               <span>Tarifa</span>
               <span>Base</span>
@@ -253,6 +301,138 @@
               Vaciar ventas
             </button>
             <button class="primary-btn" onclick="enviarVentasAlFormulario104()">
+              Enviar al Formulario 104
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- REGISTRAR COMPRAS -->
+      <section id="vistaCompras" class="system-view">
+        <div class="system-panel compras-panel">
+          <span class="eyebrow">Compras / Registrar</span>
+          <h1>Agregar compra</h1>
+          <p>
+            Registra compras por comprobante. El sistema genera el número automáticamente,
+            calcula IVA y luego conecta los valores al Formulario 104 según el mes de la fecha.
+          </p>
+
+          <div class="purchase-preview-card">
+            <div>
+              <span>Próximo comprobante</span>
+              <strong id="compraComprobantePreview">COMP-000001</strong>
+            </div>
+            <i class='bx bx-receipt'></i>
+          </div>
+
+          <div class="form-grid-system">
+            <label>
+              Fecha de compra *
+              <input class="contaui-input" type="date" id="compraFecha">
+              <small id="txtCompraFecha"></small>
+            </label>
+
+            <label>
+              Descripción *
+              <input class="contaui-input" type="text" id="compraDescripcion" placeholder="Ejemplo: Compra de insumos o mercadería">
+              <small id="txtCompraDescripcion"></small>
+            </label>
+
+            <label>
+              Valor base *
+              <input class="contaui-input" type="number" id="compraBase" placeholder="0.00" min="0" step="0.01" oninput="actualizarPreviewCompra()">
+              <small id="txtCompraBase"></small>
+            </label>
+
+            <label>
+              Tarifa de IVA *
+              <select class="contaui-select" id="compraTarifa" onchange="actualizarPreviewCompra()">
+                <option value="15">15%</option>
+                <option value="8">8%</option>
+                <option value="5">5%</option>
+                <option value="0">0%</option>
+                <option value="personalizado">Personalizado</option>
+              </select>
+            </label>
+
+            <label id="grupoIvaPersonalizado" class="hidden-field">
+              IVA personalizado %
+              <input class="contaui-input" type="number" id="compraTarifaPersonalizada" value="15" min="0" step="0.01" oninput="actualizarPreviewCompra()">
+            </label>
+          </div>
+
+          <div class="totales-sri-box purchase-live-summary">
+            <h3>Vista rápida de la compra</h3>
+            <div><span>Base imponible</span><strong id="previewCompraBase">$0.00</strong></div>
+            <div><span>IVA calculado</span><strong id="previewCompraIva">$0.00</strong></div>
+            <div class="total-final"><span>Total comprobante</span><strong id="previewCompraTotal">$0.00</strong></div>
+          </div>
+
+          <div class="form-actions-system">
+            <button class="primary-btn" onclick="agregarCompraSistema()">
+              <i class='bx bx-plus'></i>
+              Guardar compra
+            </button>
+
+            <button class="secondary-btn" onclick="mostrarModuloSistema('consultasCompras')">
+              <i class='bx bx-list-ul'></i>
+              Ver compras registradas
+            </button>
+          </div>
+
+          <p id="mensajeCompraAgregada" class="venta-agregada"></p>
+        </div>
+      </section>
+
+      <!-- CONSULTAR COMPRAS -->
+      <section id="vistaConsultasCompras" class="system-view">
+        <div class="system-panel">
+          <span class="eyebrow">Compras / Consultas</span>
+          <h1>Compras registradas</h1>
+          <p>
+            Consulta tus compras por fecha. Solo los meses con compras o ventas aparecerán activos para el Formulario 104.
+          </p>
+
+          <div class="form-grid-system mini-grid">
+            <label>
+              Filtrar por mes
+              <select class="contaui-select" id="filtroComprasMes" onchange="pintarComprasSistema()">
+                <option value="">Todos los meses</option>
+              </select>
+            </label>
+            <label>
+              Filtrar por año
+              <input class="contaui-input" type="number" id="filtroComprasAnio" value="2026" min="2020" max="2035" oninput="pintarComprasSistema()">
+            </label>
+          </div>
+
+          <div class="ventas-table compras-table">
+            <div class="ventas-row ventas-head compras-head">
+              <span>Comprobante</span>
+              <span>Fecha</span>
+              <span>Descripción</span>
+              <span>Tarifa</span>
+              <span>Base</span>
+              <span>IVA</span>
+              <span>Total</span>
+              <span></span>
+            </div>
+            <div id="comprasBody"></div>
+          </div>
+
+          <div class="totales-sri-box">
+            <h3>Totales de compras</h3>
+            <div><span>Compras gravadas con IVA (500)</span><strong id="totalCompras15">$0.00</strong></div>
+            <div><span>Compras tarifa 0% (506)</span><strong id="totalCompras0">$0.00</strong></div>
+            <div><span>IVA pagado en compras</span><strong id="totalComprasIva">$0.00</strong></div>
+            <div class="total-final"><span>Total de compras</span><strong id="totalComprasGeneral">$0.00</strong></div>
+          </div>
+
+          <div class="form-actions-system">
+            <button class="secondary-btn danger" onclick="limpiarComprasSistema()">
+              Vaciar compras
+            </button>
+            <button class="primary-btn" onclick="enviarComprasAlFormulario104()">
               Enviar al Formulario 104
             </button>
           </div>
@@ -472,6 +652,7 @@
               <div><span>RUC</span><strong id="pagoRuc">-</strong></div>
               <div><span>Obligación</span><strong id="pagoObligacion">-</strong></div>
               <div><span>Período</span><strong id="pagoPeriodo">-</strong></div>
+              <div><span>Fecha máxima de pago</span><strong id="pagoFechaMaxima">-</strong></div>
               <div class="total-final"><span>Total a pagar</span><strong id="pagoTotal">$0.00</strong></div>
             </div>
 
@@ -489,7 +670,7 @@
           <span class="eyebrow">Consultas</span>
           <h1>Declaraciones guardadas</h1>
           <p>
-            Busca valores a Pagar Aqui
+            Revisa las declaraciones guardadas y genera el comprobante educativo en formato de impresión.
           </p>
 
           <div id="listaConsultasSistema" class="consultas-list"></div>
@@ -500,6 +681,7 @@
   </div>
 
   <script src="js/utilitarios.js"></script>
+  <script src="js/comprobantes.js"></script>
   <script src="js/sistema.js"></script>
 
   <!-- Modal-->
