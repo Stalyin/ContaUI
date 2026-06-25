@@ -537,9 +537,8 @@ function pintarConsultasSistema() {
     return;
   }
 
-  for (let i = declaraciones.length - 1; i >= 0; i--) {
+  for (let i = 0; i < declaraciones.length; i++) {
     let item = declaraciones[i];
-
     let fila = document.createElement("tr");
 
     fila.innerHTML = `
@@ -735,6 +734,7 @@ function crearMovimientoSistema(configuracion) {
   return {
     id: Date.now(),
     comprobante: configuracion.generarComprobante(),
+    cliente: obtenerValor(configuracion.cliente) || "Consumidor Final",
     fecha: fecha,
     periodoClave: obtenerClavePeriodoPorFecha(fecha),
     descripcion: descripcion || configuracion.descripcionDefault,
@@ -749,6 +749,7 @@ function agregarVentaSistema() {
   limpiarErrores();
 
   let venta = crearMovimientoSistema({
+    cliente: "ventaCliente",
     idFecha: "ventaFecha",
     idErrorFecha: "txtVentaFecha",
     idDescripcion: "ventaDescripcion",
@@ -769,6 +770,7 @@ function agregarVentaSistema() {
 
   limpiarCampos([
     { id: "ventaFecha", valor: obtenerFechaActualISO() },
+    { id: "ventaCliente", valor: "" },
     { id: "ventaDescripcion", valor: "" },
     { id: "ventaBase", valor: "" },
     { id: "ventaTarifa", valor: "15" },
@@ -820,6 +822,7 @@ function crearFilaMovimiento(item, claseFila, funcionEliminar) {
 
   fila.innerHTML = `
     <span data-label="Comprobante">${item.comprobante || "Pendiente"}</span>
+    <span data-label="Cliente">${item.cliente || "Consumidor Final"} </span>
     <span data-label="Fecha">${formatearFechaCorta(item.fecha)}</span>
     <span data-label="Descripción">${item.descripcion}</span>
     <span data-label="Tarifa">${item.tarifa}%</span>
