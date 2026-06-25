@@ -219,6 +219,7 @@
               Tarifa de IVA *
               <select class="contaui-select" id="ventaTarifa" onchange="actualizarPreviewVenta()">
                 <option value="15">15%</option>
+                <option value="8">15%</option>
                 <option value="0">0%</option>
               </select>
               <small></small>
@@ -562,6 +563,22 @@
                 <input type="number" id="compras15" placeholder="0.00" min="0" step="0.01" oninput="calcularFormulario104Sistema()">
                 <strong id="netoCompras15">$0.00</strong>
                 <strong id="impCompras15">$0.00</strong>
+              </div>
+
+              <div class="sri-row">
+                <span>Adquisiciones gravadas tarifa 8%</span>
+                <span>500</span>
+                <input type="number" id="compras8" placeholder="0.00" min="0" step="0.01" oninput="calcularFormulario104Sistema()">
+                <strong id="netoCompras8">$0.00</strong>
+                <strong id="impCompras8">$0.00</strong>
+              </div>
+
+              <div class="sri-row">
+                <span>Adquisiciones gravadas tarifa 5%</span>
+                <span>500</span>
+                <input type="number" id="compras5" placeholder="0.00" min="0" step="0.01" oninput="calcularFormulario104Sistema()">
+                <strong id="netoCompras5">$0.00</strong>
+                <strong id="impCompras5">$0.00</strong>
               </div>
 
               <div class="sri-row">

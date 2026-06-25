@@ -403,6 +403,8 @@ function calcularFormulario104Sistema() {
   let ventas15 = obtenerNumero("ventas15");
   let ventas0 = obtenerNumero("ventas0");
   let compras15 = obtenerNumero("compras15");
+  let compras8 = obtenerNumero("compras8");
+  let compras5 = obtenerNumero("compras5");
   let compras0 = obtenerNumero("compras0");
   let porcentaje = obtenerNumero("ivaDeclaracion");
   let creditoAnterior = obtenerNumero("creditoAnterior");
@@ -425,7 +427,7 @@ function calcularFormulario104Sistema() {
   calculoActual.creditoProximo = saldoTributario;
 
   let totalVentas = ventas15 + ventas0;
-  let totalCompras = compras15 + compras0;
+  let totalCompras = compras15 + compras8 +compras5 + compras0;
 
   mostrarTexto("netoVentas15", dinero(ventas15));
   mostrarTexto("impVentas15", dinero(ivaVentas));
@@ -436,6 +438,20 @@ function calcularFormulario104Sistema() {
 
   mostrarTexto("netoCompras15", dinero(compras15));
   mostrarTexto("impCompras15", dinero(ivaCompras));
+  mostrarTexto("netoCompras0", dinero(compras0));
+  mostrarTexto("totalBrutoCompras", dinero(totalCompras));
+  mostrarTexto("totalNetoCompras", dinero(totalCompras));
+  mostrarTexto("totalImpuestoCompras", dinero(ivaCompras));
+
+  mostrarTexto("netoCompras8", dinero(compras8));
+  mostrarTexto("impCompras8", dinero(ivaCompras));
+  mostrarTexto("netoCompras0", dinero(compras0));
+  mostrarTexto("totalBrutoCompras", dinero(totalCompras));
+  mostrarTexto("totalNetoCompras", dinero(totalCompras));
+  mostrarTexto("totalImpuestoCompras", dinero(ivaCompras));
+
+  mostrarTexto("netoCompras5", dinero(compras5));
+  mostrarTexto("impCompras5", dinero(ivaCompras));
   mostrarTexto("netoCompras0", dinero(compras0));
   mostrarTexto("totalBrutoCompras", dinero(totalCompras));
   mostrarTexto("totalNetoCompras", dinero(totalCompras));
@@ -875,6 +891,8 @@ function pintarVentasSistema() {
 
 function calcularTotalesMovimientos(lista) {
   let totalBase15 = 0;
+  let totalBase8 = 0;
+  let totalBase5 = 0;
   let totalBase0 = 0;
   let totalIva = 0;
   let totalGeneral = 0;
@@ -884,8 +902,12 @@ function calcularTotalesMovimientos(lista) {
 
     if (item.tarifa === 0) {
       totalBase0 += item.base;
-    } else {
+    } else if(item.tarifa === 15) {
       totalBase15 += item.base;
+    } else if (item.tarifa === 8) {
+      totalBase8 += item.base;
+    } else {
+      totalBase5 += item.base;
     }
 
     totalIva += item.iva;
@@ -894,6 +916,8 @@ function calcularTotalesMovimientos(lista) {
 
   return {
     base15: totalBase15,
+    base8: totalBase8,
+    base5: totalBase5,
     base0: totalBase0,
     iva: totalIva,
     total: totalGeneral,
@@ -1311,10 +1335,14 @@ function cargarMovimientosDelPeriodoSeleccionado() {
   if (clave === "") {
     return;
   }
-
+  let totalCompras15 = 0;
+  let totalCompras8 = 0;
+  let totalCompras5 = 0;
+  let totalCompras0 = 0;
   let movimientos = obtenerMovimientosPeriodo(clave);
   let totalesVentas = calcularTotalesVentasLista(movimientos.ventas);
   let totalesCompras = calcularTotalesCompras(movimientos.compras);
+  
 
   obtenerElemento("ventas15").value =
     totalesVentas.base15 > 0 ? totalesVentas.base15.toFixed(2) : "";
@@ -1322,10 +1350,14 @@ function cargarMovimientosDelPeriodoSeleccionado() {
     totalesVentas.base0 > 0 ? totalesVentas.base0.toFixed(2) : "";
   obtenerElemento("compras15").value =
     totalesCompras.base15 > 0 ? totalesCompras.base15.toFixed(2) : "";
+  obtenerElemento("compras8").value =
+    totalesCompras.base8 > 0 ? totalesCompras.base8.toFixed(2) : "";
+  obtenerElemento("compras5").value =
+    totalesCompras.base5 > 0 ? totalesCompras.base5.toFixed(2) : "";
   obtenerElemento("compras0").value =
     totalesCompras.base0 > 0 ? totalesCompras.base0.toFixed(2) : "";
-
-  autocompletarCreditoAnterior();
+  
+    autocompletarCreditoAnterior();
   autocompletarPreguntasPeriodo();
   actualizarResumenPeriodo(movimientos, totalesVentas, totalesCompras);
   calcularFormulario104Sistema();
